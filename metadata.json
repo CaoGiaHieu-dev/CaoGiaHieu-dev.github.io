@@ -1,0 +1,8 @@
+{
+  "name": "Cao Gia Hiếu - Flutter Developer",
+  "description": "Portfolio của Cao Gia Hiếu (@CaoGiaHieu-dev) - Flutter Developer từ Việt Nam, tác giả của dynamic_logger, http_security_pinning, refresh_sticky trên Pub.dev, tác giả flutter-monorepo-codebase và contributor cho Flutter framework.",
+  "permissions": [],
+  "capabilities": [
+    "MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"
+  ]
+}
