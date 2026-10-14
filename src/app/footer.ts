@@ -11,7 +11,7 @@ import { ScrollRevealDirective } from './scroll-reveal';
   template: `
     <footer
       appScrollReveal
-      class="bg-white/70 dark:bg-[#090b10]/90 backdrop-blur-xl border-t border-slate-200/80 dark:border-white/[0.08] pt-14 pb-[calc(5rem+env(safe-area-inset-bottom,0px))] md:pb-12 text-slate-600 dark:text-slate-400 text-xs transition-colors duration-200"
+      class="bg-white/80 dark:bg-[#08090d]/90 backdrop-blur-2xl border-t border-slate-200/80 dark:border-white/[0.06] pt-14 pb-[calc(5rem+env(safe-area-inset-bottom,0px))] md:pb-12 text-slate-600 dark:text-slate-400 text-xs transition-colors duration-300"
     >
       <div class="max-w-6xl mx-auto px-4 sm:px-6">
         
@@ -20,7 +20,7 @@ import { ScrollRevealDirective } from './scroll-reveal';
           <!-- Identity -->
           <div class="sm:col-span-2 space-y-3">
             <div class="flex items-center gap-2.5">
-              <div class="w-7 h-7 rounded-lg bg-gradient-to-tr from-sky-500 via-indigo-600 to-blue-600 flex items-center justify-center font-bold text-white text-xs font-mono shadow-xs">
+              <div class="w-8 h-8 rounded-xl bg-gradient-to-tr from-sky-500 via-blue-600 to-indigo-600 flex items-center justify-center font-bold text-white text-xs font-mono shadow-xs">
                 GH
               </div>
               <span class="text-sm font-bold text-slate-900 dark:text-white">{{ data.profile.name }}</span>
@@ -28,15 +28,16 @@ import { ScrollRevealDirective } from './scroll-reveal';
             <p class="text-xs text-slate-600 dark:text-slate-400 max-w-sm leading-relaxed">
               {{ i18n.t().footer.headline }}
             </p>
-            <div class="text-[11px] font-mono text-slate-500 dark:text-slate-400">
-              {{ i18n.t().footer.locationNote }}
+            <div class="text-[11px] font-mono text-slate-500 dark:text-slate-400 flex items-center gap-1.5">
+              <mat-icon class="text-xs leading-none">location_on</mat-icon>
+              <span>{{ i18n.t().footer.locationNote }}</span>
             </div>
           </div>
 
           <!-- Quick Navigation -->
           <div>
             <div class="text-xs font-mono font-bold text-slate-900 dark:text-slate-200 mb-3">{{ i18n.t().footer.sectionsTitle }}</div>
-            <ul class="space-y-2">
+            <ul class="space-y-2 font-mono">
               <li><a href="#packages" class="hover:text-slate-900 dark:hover:text-white transition-colors py-1 inline-block">{{ i18n.t().nav.packages }}</a></li>
               <li><a href="#architecture" class="hover:text-slate-900 dark:hover:text-white transition-colors py-1 inline-block">{{ i18n.t().nav.architecture }}</a></li>
               <li><a href="#contributions" class="hover:text-slate-900 dark:hover:text-white transition-colors py-1 inline-block">{{ i18n.t().nav.contributions }}</a></li>

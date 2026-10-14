@@ -41,32 +41,6 @@ export interface Translations {
     viewCode: string;
     close: string;
     openPubDev: string;
-    playgroundTitle: string;
-    playgroundSubtitle: string;
-    loggerTab: string;
-    pinningTab: string;
-    stickyTab: string;
-    loggerTriggerInfo: string;
-    loggerTriggerWarn: string;
-    loggerTriggerError: string;
-    loggerClear: string;
-    pinningTestValid: string;
-    pinningTestInvalid: string;
-    pinningReset: string;
-    pinningTargetHost: string;
-    pinningAllowedSpki: string;
-    pinningAwaitingStatus: string;
-    pinningSuccessTitle: string;
-    pinningSuccessDesc: string;
-    pinningBlockedTitle: string;
-    pinningBlockedDesc: string;
-    stickyTrigger: string;
-    stickyReloading: string;
-    stickyDone: string;
-    stickyHeaderTitle: string;
-    stickyItem1: string;
-    stickyItem2: string;
-    stickyItem3: string;
   };
   architecture: {
     kicker: string;
@@ -74,6 +48,12 @@ export interface Translations {
     viewRepo: string;
     treeTitle: string;
     treeSubtitle: string;
+    tabLayers: string;
+    tabTree: string;
+    tabTools: string;
+    layersHeading: string;
+    toolsHeading: string;
+    treeHeading: string;
     pillar1Title: string;
     pillar1Detail: string;
     pillar2Title: string;
@@ -142,69 +122,49 @@ const VI_TRANSLATIONS: Translations = {
     switchToDark: 'Chuyển sang giao diện Tối',
   },
   hero: {
-    kicker: 'Flutter Developer · TP. Hồ Chí Minh · Tác giả Pub.dev',
+    kicker: 'Senior Flutter Engineer · Tác giả Pub.dev · Open Source',
     greeting: 'Xin chào, tôi là',
-    role: 'Flutter Developer & Tác giả mã nguồn mở.',
-    bio: 'Lập trình viên chuyên sâu về Flutter & Dart tại Việt Nam. Tác giả của 3 package trên Pub.dev: dynamic_logger (^0.5.0), http_security_pinning (^2.0.0), refresh_sticky (^0.1.2) và tác giả của template kiến trúc flutter-monorepo-codebase.',
-    highlight1: 'Tác giả 3 package chính thức trên registry pub.dev: dynamic_logger, http_security_pinning, refresh_sticky',
-    highlight2: 'Tác giả flutter-monorepo-codebase: Clean Architecture kết hợp Dart Pub Workspaces và BLoC đa tầng',
-    highlight3: 'Tác giả các Pull Request và Issue kỹ thuật đóng góp trực tiếp cho Google Flutter (flutter/flutter & flutter/packages)',
+    role: 'Senior Flutter Engineer & Tác giả mã nguồn mở',
+    bio: 'Kỹ sư phần mềm di động chuyên sâu Flutter & Dart. Tác giả của 3 package chính thức trên Pub.dev: dynamic_logger (^0.5.0), http_security_pinning (^2.0.0), refresh_sticky (^0.1.2), tác giả kiến trúc flutter-monorepo-codebase (Pub Workspaces bản địa & đa hệ MVVM+Provider/BLoC) và trực tiếp đóng góp kỹ thuật cho Google flutter/packages.',
+    highlight1: '3 Thư viện phát hành chính thức trên Pub.dev: dynamic_logger, http_security_pinning, refresh_sticky',
+    highlight2: 'Tác giả flutter-monorepo-codebase: Micro-packages Clean Architecture, Dart native Pub Workspaces, BLoC & Provider',
+    highlight3: 'Đóng góp kỹ thuật trực tiếp cho Google Flutter core repositories (flutter/packages)',
     btnPackages: '3 Packages trên Pub.dev',
-    btnContributions: 'Đóng góp Flutter & Issues',
+    btnContributions: 'Kiến trúc Monorepo & Core Tools',
     btnContact: 'Kênh liên hệ chính thức',
     copy: 'Sao chép',
     copied: 'Đã sao chép',
     snippetTitle: 'Mã nguồn thực tế: http_security_pinning: ^2.0.0',
   },
   packages: {
-    kicker: '01 · Danh mục chính thức trên Pub.dev',
+    kicker: '01 · Thư viện chính thức trên Pub.dev',
     title: 'Các Package đã phát hành trên Pub.dev',
-    subtitle: 'Mã nguồn mở Dart và Flutter do Cao Gia Hiếu phát triển độc lập, giải quyết bài toán bảo mật mạng, giám sát nhật ký có cấu trúc và thanh chỉ số cuộn sticky.',
+    subtitle: 'Thư viện mã nguồn mở chuyên dụng cho Flutter & Dart được xây dựng với tiêu chuẩn nghiêm ngặt về an ninh TLS/SPKI, trích xuất log hiệu năng cao và hiệu ứng cuộn 120 FPS.',
     viewOnPubDev: 'Xem trên Pub.dev',
-    viewCode: 'Xem mã nguồn mẫu',
+    viewCode: 'Xem mã nguồn Dart',
     close: 'Đóng',
     openPubDev: 'Mở trang Pub.dev',
-    playgroundTitle: 'Bàn thử nghiệm tương tác 3 Package',
-    playgroundSubtitle: 'Kiểm tra và tương tác trực tiếp cơ chế hoạt động thực tế của từng package ngay trên trình duyệt.',
-    loggerTab: 'dynamic_logger (v0.5.0)',
-    pinningTab: 'http_security_pinning (v2.0.0)',
-    stickyTab: 'refresh_sticky (v0.1.2)',
-    loggerTriggerInfo: 'Phát Log Info',
-    loggerTriggerWarn: 'Phát Log Cảnh báo',
-    loggerTriggerError: 'Phát Log Lỗi + Trace',
-    loggerClear: 'Xóa màn hình Log',
-    pinningTestValid: 'Kiểm tra SPKI Hợp lệ (Cho phép)',
-    pinningTestInvalid: 'Giả lập tấn công MITM (Chặn TLS)',
-    pinningReset: 'Đặt lại trạng thái',
-    pinningTargetHost: 'Máy chủ đích:',
-    pinningAllowedSpki: 'Khóa ghim SPKI hợp lệ:',
-    pinningAwaitingStatus: 'Trạng thái: Đang chờ khởi tạo kết nối...',
-    pinningSuccessTitle: 'Bắt tay TLS 1.3 Thành công · Đã xác minh SPKI SHA-256',
-    pinningSuccessDesc: 'Mã băm SHA-256 khóa công khai của server khớp hoàn toàn với danh sách AllowedPins. Dữ liệu HTTP 200 OK được giải mã an toàn qua dart:io HttpClient.',
-    pinningBlockedTitle: 'Đã chặn đứng tấn công MITM · HandshakeException: Pin Mismatch',
-    pinningBlockedDesc: 'Phát hiện chứng chỉ giả mạo từ proxy can thiệp. http_security_pinning lập tức ngắt socket trước khi dữ liệu nhạy cảm được gửi đi.',
-    stickyTrigger: 'Kích hoạt Kéo để làm mới',
-    stickyReloading: 'Header đang được ghim sticky, tải dữ liệu mới...',
-    stickyDone: 'Làm mới thành công ở tốc độ 120 FPS',
-    stickyHeaderTitle: 'Thanh trạng thái ghim cố định (Sticky Header)',
-    stickyItem1: 'Mục 1: Tải dữ liệu danh sách đồng bộ (Đã lưu cache)',
-    stickyItem2: 'Mục 2: Giám sát đo lường mạng theo thời gian thực',
-    stickyItem3: 'Mục 3: Cuộn mượt mà không giật khung hình (120 FPS)',
   },
   architecture: {
-    kicker: '02 · Kiến trúc & Kho mã nguồn tiêu biểu',
+    kicker: '02 · Kiến trúc chuẩn công nghiệp',
     title: 'flutter-monorepo-codebase',
     viewRepo: 'Xem kho mã nguồn GitHub',
-    treeTitle: 'Cấu trúc thư mục Monorepo chuẩn hóa',
-    treeSubtitle: 'Dart Melos Workspace · Clean Architecture · BLoC đa tầng',
-    pillar1Title: 'Kiến trúc sạch đa tầng (Clean Architecture)',
-    pillar1Detail: 'Phân tách nghiêm ngặt Presentation, Domain, Data và Core layer. Domain layer hoàn toàn độc lập với Flutter SDK.',
-    pillar2Title: 'Dart Pub Workspace & Melos',
-    pillar2Detail: 'Quản lý nhiều package phụ thuộc nội bộ mà không cần publish lên Pub.dev trong quá trình phát triển tính năng.',
-    pillar3Title: 'State Management BLoC / Cubit',
-    pillar3Detail: 'Luồng dữ liệu một chiều dự đoán được, testable tuyệt đối với bloc_test, tích hợp dynamic_logger tự động.',
-    pillar4Title: 'CI/CD & Chất lượng mã nguồn nghiêm ngặt',
-    pillar4Detail: 'Quy chuẩn linter chặt chẽ, tự động hóa kiểm tra tĩnh (analyze), unit tests và build ma trận Android/iOS.',
+    treeTitle: 'Cấu trúc thư mục Monorepo thực tế',
+    treeSubtitle: 'Dart Native Pub Workspaces · Clean Architecture · Đa hệ MVVM & BLoC',
+    tabLayers: '5 Tầng C4 Architecture',
+    tabTree: 'Cây thư mục vật lý',
+    tabTools: 'Bộ công cụ CLI Developer',
+    layersHeading: 'Phân tách 5 tầng hệ thống (Workspace C4 Model)',
+    toolsHeading: 'Bộ công cụ dòng lệnh (Developer CLI Toolset)',
+    treeHeading: 'Cây thư mục vật lý chuẩn xác',
+    pillar1Title: 'Kiến trúc Micro-packages & Clean Architecture',
+    pillar1Detail: 'Phân rã nghiêm ngặt Host App Shell (app/) ➔ Features ➔ Domain (Pure Dart, 0 phụ thuộc) ➔ Data (Drift DAO & Cache) ➔ Core (11 micro-packages hạ tầng).',
+    pillar2Title: 'Pub Workspaces bản địa của Dart',
+    pillar2Detail: 'Sử dụng cấu hình pub workspace native của Dart, liên kết và quản lý phụ thuộc nội bộ đa package mượt mà không cần công cụ trung gian bên thứ ba.',
+    pillar3Title: 'Đa hệ State Management: MVVM + Provider & BLoC',
+    pillar3Detail: 'Hỗ trợ đồng thời cả BaseProvider (ViewStateModel) và BaseBloc / BaseCubit (BlocViewState), dữ liệu luồng 1 chiều dự đoán được và kiểm thử tuyệt đối.',
+    pillar4Title: 'Bộ công cụ CLI tự động hóa & Android 15 16KB Ready',
+    pillar4Detail: 'Tích hợp script kiểm tra tương thích bộ nhớ 16KB Page Size (Android 15+), review code AI với Gemini, CLI sinh module tự động và Version Catalog tập trung.',
   },
   contributions: {
     kicker: '03 · Hoạt động cộng đồng mã nguồn mở',
@@ -220,7 +180,7 @@ const VI_TRANSLATIONS: Translations = {
     statusMerged: 'ĐÃ MERGE',
     statusOpen: 'ĐANG MỞ',
     statusResolved: 'ĐÃ XỬ LÝ',
-    totalStats: '3 PRs đã merge · 2 Issues kỹ thuật cốt lõi',
+    totalStats: 'Pull Requests đã merge & Issues kỹ thuật cốt lõi',
   },
   contact: {
     kicker: '04 · Kênh liên hệ và xác thực',
@@ -238,7 +198,7 @@ const VI_TRANSLATIONS: Translations = {
     reachOut: 'Kết nối qua các kênh',
   },
   footer: {
-    headline: 'Flutter Developer chuyên sâu về kiến trúc hệ thống, an ninh ứng dụng và công cụ mã nguồn mở cho hệ sinh thái Dart/Flutter.',
+    headline: 'Senior Flutter Engineer chuyên sâu về kiến trúc hệ thống, an ninh ứng dụng và công cụ mã nguồn mở cho hệ sinh thái Dart/Flutter.',
     locationNote: 'Làm việc tại TP. Hồ Chí Minh, Việt Nam (UTC+7)',
     sectionsTitle: 'Điều hướng nhanh',
     channelsTitle: 'Kênh xác minh chính thức',
@@ -265,15 +225,15 @@ const EN_TRANSLATIONS: Translations = {
     switchToDark: 'Switch to dark mode',
   },
   hero: {
-    kicker: 'Flutter Developer · Ho Chi Minh City · Pub.dev Author',
+    kicker: 'Senior Flutter Engineer · Pub.dev Author · Open Source',
     greeting: "Hi, I'm",
-    role: 'Flutter Developer & Open-Source Author.',
-    bio: 'Mobile software engineer based in Vietnam specializing in Flutter & Dart. Author of 3 published packages on Pub.dev: dynamic_logger (^0.5.0), http_security_pinning (^2.0.0), refresh_sticky (^0.1.2), and architect of flutter-monorepo-codebase.',
+    role: 'Senior Flutter Engineer & Open-Source Author',
+    bio: 'Mobile software engineer based in Vietnam specializing in high-performance Flutter & Dart. Author of 3 published packages on Pub.dev: dynamic_logger (^0.5.0), http_security_pinning (^2.0.0), refresh_sticky (^0.1.2), architect of flutter-monorepo-codebase (native Dart Pub Workspaces & dual MVVM+Provider/BLoC), and contributor to Google flutter/packages.',
     highlight1: 'Author of 3 verified packages on pub.dev: dynamic_logger, http_security_pinning, refresh_sticky',
-    highlight2: 'Architect of flutter-monorepo-codebase: Clean Architecture with Dart Pub Workspaces and BLoC',
-    highlight3: 'Author of Pull Requests and technical Issues submitted directly to Google Flutter (flutter/flutter & flutter/packages)',
+    highlight2: 'Architect of flutter-monorepo-codebase: Micro-packages Clean Architecture, Dart native Pub Workspaces, BLoC & Provider',
+    highlight3: 'Direct code and architectural contributions to Google Flutter core repositories (flutter/packages)',
     btnPackages: '3 Pub.dev Packages',
-    btnContributions: 'Flutter Contributions & Issues',
+    btnContributions: 'Monorepo Architecture & Core Tools',
     btnContact: 'Official Contact Channels',
     copy: 'Copy',
     copied: 'Copied',
@@ -282,52 +242,32 @@ const EN_TRANSLATIONS: Translations = {
   packages: {
     kicker: '01 · Official Pub.dev Registry',
     title: 'Published Packages on Pub.dev',
-    subtitle: 'Open-source Dart and Flutter packages developed by Cao Gia Hiếu, addressing network security, structured diagnostics, and sticky scroll UI indicators.',
+    subtitle: 'Battle-tested open-source libraries for Dart & Flutter, engineered with strict standards for TLS/SPKI mobile security, zero-overhead structured diagnostics, and 120 FPS sliver physics.',
     viewOnPubDev: 'View on Pub.dev',
-    viewCode: 'View Code Snippet',
+    viewCode: 'View Dart Code',
     close: 'Close',
     openPubDev: 'Open Pub.dev Page',
-    playgroundTitle: 'Interactive 3-Package Testbench',
-    playgroundSubtitle: 'Inspect and test the actual runtime mechanics of each package directly in your browser.',
-    loggerTab: 'dynamic_logger (v0.5.0)',
-    pinningTab: 'http_security_pinning (v2.0.0)',
-    stickyTab: 'refresh_sticky (v0.1.2)',
-    loggerTriggerInfo: 'Emit Info Log',
-    loggerTriggerWarn: 'Emit Warn Log',
-    loggerTriggerError: 'Emit Error + Trace',
-    loggerClear: 'Clear Console Screen',
-    pinningTestValid: 'Verify Valid SPKI Pin (Allow)',
-    pinningTestInvalid: 'Simulate MITM / Bad Pin (Reject TLS)',
-    pinningReset: 'Reset State',
-    pinningTargetHost: 'Target Host:',
-    pinningAllowedSpki: 'Allowed SPKI Pin:',
-    pinningAwaitingStatus: 'Status: Awaiting handshake initiation...',
-    pinningSuccessTitle: 'TLS 1.3 Handshake Successful · SPKI SHA-256 Verified',
-    pinningSuccessDesc: 'Server Public Key SHA-256 hash matches AllowedPins whitelist perfectly. HTTP 200 OK payload decrypted securely via dart:io HttpClient.',
-    pinningBlockedTitle: 'MITM Attack Intercepted · HandshakeException: Pin Mismatch',
-    pinningBlockedDesc: 'Untrusted/spoofed certificate detected from proxy or intermediary. http_security_pinning immediately terminates socket before transmitting sensitive data.',
-    stickyTrigger: 'Trigger Pull-to-Refresh',
-    stickyReloading: 'Header pinned sticky, fetching new records...',
-    stickyDone: 'Refreshed successfully at 120 FPS',
-    stickyHeaderTitle: 'Sticky Refresh Indicator',
-    stickyItem1: 'Row 1: Synchronized list feed payload (Cached)',
-    stickyItem2: 'Row 2: Real-time network telemetry snapshot',
-    stickyItem3: 'Row 3: Smooth UI scroll without frame drops (120 FPS)',
   },
   architecture: {
-    kicker: '02 · Featured Architecture & Repository',
+    kicker: '02 · Enterprise Architecture',
     title: 'flutter-monorepo-codebase',
     viewRepo: 'View GitHub Repository',
-    treeTitle: 'Standardized Monorepo File Hierarchy',
-    treeSubtitle: 'Dart Melos Workspace · Clean Architecture · Multi-Tier BLoC',
-    pillar1Title: 'Clean Layered Architecture',
-    pillar1Detail: 'Strict boundary between Presentation, Domain, Data, and Core packages. Domain is purely Dart with zero SDK lock-in.',
-    pillar2Title: 'Dart Pub Workspace & Melos',
-    pillar2Detail: 'Seamlessly manages multiple co-dependent packages locally without needing pre-releases published on pub.dev.',
-    pillar3Title: 'Predictable BLoC / Cubit State',
-    pillar3Detail: 'Unidirectional data flows, deterministic state emission testable with bloc_test, and deep dynamic_logger hooks.',
-    pillar4Title: 'Strict CI/CD & Static Analysis',
-    pillar4Detail: 'Comprehensive lint rules, automated static analyzer pipelines, unit test suites, and Android/iOS build matrix.',
+    treeTitle: 'Authentic Monorepo File Hierarchy',
+    treeSubtitle: 'Native Dart Pub Workspaces · Clean Architecture · Dual MVVM & BLoC',
+    tabLayers: '5-Tier C4 Architecture',
+    tabTree: 'Physical Folder Tree',
+    tabTools: 'Developer CLI Suite',
+    layersHeading: '5-Tier System Decomposition (Workspace C4 Model)',
+    toolsHeading: 'Command-Line Automation Toolset (Developer CLI)',
+    treeHeading: 'Exact Physical Directory Tree',
+    pillar1Title: 'Micro-packages & Clean Architecture',
+    pillar1Detail: 'Strict unidirectional dependency flow: Host App Shell (app/) ➔ Features ➔ Domain (Pure Dart, 0 dependencies) ➔ Data (Drift DAO & Cache) ➔ Core (11 infrastructure micro-packages).',
+    pillar2Title: 'Native Dart Pub Workspaces',
+    pillar2Detail: 'Leverages Dart native workspace configuration, seamlessly linking and managing interdependent micro-packages without third-party tooling.',
+    pillar3Title: 'Dual State Management: MVVM + Provider & BLoC',
+    pillar3Detail: 'Architectural support for both BaseProvider (ViewStateModel) and BaseBloc / BaseCubit (BlocViewState), deterministic unidirectional data flows, and full testability.',
+    pillar4Title: 'Developer CLI Suite & Android 15 16KB Page Size Ready',
+    pillar4Detail: 'Includes mandatory 16KB Page Size compliance checks for Android 15+, automated Gemini AI code reviews, module generators, and centralized version catalog.',
   },
   contributions: {
     kicker: '03 · Open Source Ecosystem Contributions',
@@ -343,7 +283,7 @@ const EN_TRANSLATIONS: Translations = {
     statusMerged: 'MERGED',
     statusOpen: 'OPEN',
     statusResolved: 'RESOLVED',
-    totalStats: '3 Merged PRs · 2 Core Technical Issues',
+    totalStats: 'Merged Pull Requests & Core Technical Issues',
   },
   contact: {
     kicker: '04 · Verification & Inquiries',

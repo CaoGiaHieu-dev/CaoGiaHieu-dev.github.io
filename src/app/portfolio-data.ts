@@ -14,11 +14,33 @@ export interface PubPackage {
   dartSnippet: string;
 }
 
+export interface MonorepoLayer {
+  name: string;
+  roleVi: string;
+  roleEn: string;
+  badge: string;
+  detailsVi: string;
+  detailsEn: string;
+  packages: string[];
+}
+
+export interface MonorepoTool {
+  name: string;
+  command: string;
+  descVi: string;
+  descEn: string;
+  tag: string;
+}
+
 export interface MonorepoArchitecture {
   name: string;
+  githubUrl: string;
+  taglineVi: string;
+  taglineEn: string;
   descriptionVi: string;
   descriptionEn: string;
-  githubUrl: string;
+  layers: MonorepoLayer[];
+  tools: MonorepoTool[];
   structureTree: string;
 }
 
@@ -45,125 +67,279 @@ export class PortfolioData {
   readonly profile = {
     name: 'Cao Gia Hiếu',
     handle: 'CaoGiaHieu-dev',
-    title: 'Flutter Developer',
+    title: 'Senior Flutter Engineer & Pub.dev Author',
     location: 'TP. Hồ Chí Minh, Việt Nam',
     locationEn: 'Ho Chi Minh City, Vietnam',
-    email: 'caogiahieu99@gmail.com',
-    secondaryEmail: 'nhoklolshjn1234@gmail.com',
+    email: 'nhoklolshjn1234@gmail.com',
+    secondaryEmail: 'caogiahieu99@gmail.com',
     github: 'https://github.com/CaoGiaHieu-dev',
     facebook: 'https://www.facebook.com/hieu.shjn/',
     verifiedPubDevUrl: 'https://pub.dev/packages/http_security_pinning',
   };
 
-  // Exactly the 3 packages specified on Pub.dev
+  // Exactly 3 verified published packages on Pub.dev
   readonly publishedPackages: PubPackage[] = [
     {
-      id: 'dynamic_logger',
+      id: 'dynamic-logger',
       name: 'dynamic_logger',
       version: '0.5.0',
       versionSpec: '^0.5.0',
-      descriptionVi: 'Trình ghi log đơn giản, có cấu trúc linh hoạt cho ứng dụng Dart/Flutter, hỗ trợ cấu hình đa cấp độ (debug, info, warn, error) và bộ định dạng output chuẩn xác.',
-      descriptionEn: 'A structured and configurable logging utility for Dart/Flutter applications with configurable log levels, customizable output formatters, and clean developer console output.',
+      descriptionVi: 'Thư viện ghi log hiệu năng cao với cấu trúc định dạng ANSI màu sắc, phân cấp level (DEBUG, INFO, WARN, ERROR) và trích xuất call stack chính xác cho ứng dụng Flutter & Dart.',
+      descriptionEn: 'High-performance structured logger with ANSI color formatting, log level tiers (DEBUG, INFO, WARN, ERROR), and zero-overhead call-stack inspection for Flutter & Dart.',
       pubDevUrl: 'https://pub.dev/packages/dynamic_logger',
       githubUrl: 'https://github.com/CaoGiaHieu-dev/dynamic_logger',
       installCommand: 'flutter pub add dynamic_logger',
-      tags: ['Dart Utility', 'Structured Logging', 'Diagnostics', 'Formatters'],
+      tags: ['Logging', 'Diagnostics', 'ANSI Color', 'Developer Tools'],
       dartSnippet: `import 'package:dynamic_logger/dynamic_logger.dart';
 
-// Khởi tạo logger có cấu trúc cho ứng dụng Flutter
-final logger = DynamicLogger(
-  level: LogLevel.debug,
-  prefix: '[AppKernel]',
-);
+void main() {
+  // Khởi tạo logger với cấu hình filter level & timestamp
+  final logger = DynamicLogger(
+    tag: 'NetworkService',
+    level: LogLevel.debug,
+  );
 
-logger.info('Khởi động pipeline mạng thành công');
-logger.warn('Token sắp hết hạn trong 5 phút');
-logger.error('Lỗi xác thực chứng chỉ TLS', error: err, stackTrace: st);`
+  logger.info('Khởi tạo kết nối máy chủ...');
+  logger.json({'endpoint': '/v1/auth', 'status': 200, 'durationMs': 142});
+  logger.error('Lỗi timeout khi kết nối', stackTrace: StackTrace.current);
+}`
     },
     {
-      id: 'http_security_pinning',
+      id: 'http-security-pinning',
       name: 'http_security_pinning',
       version: '2.0.0',
       versionSpec: '^2.0.0',
-      descriptionVi: 'SPKI SHA-256 certificate pinning cho Flutter với HttpClient dart:io tích hợp sẵn, bảo vệ chống tấn công Man-In-The-Middle (MITM) và kiểm tra chữ ký số Ed25519 trên Flutter Web.',
-      descriptionEn: 'SPKI SHA-256 certificate pinning for Flutter with a drop-in dart:io HttpClient to prevent Man-In-The-Middle (MITM) attacks, plus Ed25519 cryptographic signature checks on Flutter Web.',
+      descriptionVi: 'Giải pháp bảo mật mạng di động toàn diện: Ghim chứng chỉ SSL/TLS bằng mã băm SPKI SHA-256 trên tầng HttpClient, ngăn chặn triệt để tấn công trung gian (Man-In-The-Middle - MITM).',
+      descriptionEn: 'Complete mobile network security solution: SSL/TLS certificate pinning via SPKI SHA-256 hashes on dart:io HttpClient, fully neutralizing Man-In-The-Middle (MITM) attacks.',
       pubDevUrl: 'https://pub.dev/packages/http_security_pinning',
       githubUrl: 'https://github.com/CaoGiaHieu-dev/http_security_pinning',
       installCommand: 'flutter pub add http_security_pinning',
-      tags: ['Security', 'SSL Pinning', 'SPKI SHA-256', 'TLS Handshake', 'Ed25519'],
+      tags: ['Security', 'SSL Pinning', 'SPKI SHA-256', 'TLS 1.3', 'Network'],
       dartSnippet: `import 'package:http_security_pinning/http_security_pinning.dart';
 
-// Tạo HttpClient bảo mật cao chống nghe lén proxy MITM
-final client = HttpCertificatePinning.createHttpClient(
-  allowedPins: [
-    'SPKI:r/mIkG3eEpVdm+u/ko/cwxzOMo1bk4TyHIlByibiA5E=',
-  ],
-  timeout: const Duration(seconds: 15),
-);
+Future<void> sendSecureRequest() async {
+  // Tạo HttpClient được bảo vệ bằng danh sách mã băm SPKI SHA-256
+  final client = HttpCertificatePinning.createHttpClient(
+    allowedPins: [
+      'SPKI:r/mIkG3eEpVdm+u/ko/cwxzOMo1bk4TyHIlByibiA5E=',
+      'SPKI:4a6cPehI7OG6cuDZka5NDZ7FR8a60d3aitaVQKNV73w=',
+    ],
+    timeout: const Duration(seconds: 15),
+  );
 
-final request = await client.getUrl(Uri.parse('https://api.yourdomain.com/v1/user'));
-final response = await request.close();`
+  final request = await client.getUrl(Uri.parse('https://api.domain.com/v1/user'));
+  final response = await request.close();
+  // Dữ liệu chỉ được giải mã khi chứng chỉ hợp lệ 100%
+}`
     },
     {
-      id: 'refresh_sticky',
+      id: 'refresh-sticky',
       name: 'refresh_sticky',
       version: '0.1.2',
       versionSpec: '^0.1.2',
-      descriptionVi: 'Package tạo sticky refresh indicator cho Flutter, giữ header tải lại ghim cố định ở vị trí đầu thanh cuộn mượt mà trong quá trình fetch dữ liệu mới.',
-      descriptionEn: 'A Flutter UI package providing a sticky refresh indicator widget that cleanly pins at the top of scrollable views during asynchronous pull-to-refresh actions.',
+      descriptionVi: 'Widget cuộn và kéo để làm mới (Pull-to-Refresh) với hiệu ứng ghim đầu trang (Sticky Header), tối ưu hóa luồng render cho trải nghiệm mượt mà 120 FPS trên iOS & Android.',
+      descriptionEn: 'Pull-to-refresh sliver widget featuring a sticky header pin effect, maximizing frame render throughput for an ultra-smooth 120 FPS UX on iOS & Android.',
       pubDevUrl: 'https://pub.dev/packages/refresh_sticky',
       githubUrl: 'https://github.com/CaoGiaHieu-dev/refresh_sticky',
       installCommand: 'flutter pub add refresh_sticky',
-      tags: ['UI Widget', 'Scrollable', 'Refresh Indicator', 'Sticky Header'],
-      dartSnippet: `import 'package:refresh_sticky/refresh_sticky.dart';
+      tags: ['Sliver', 'Pull-to-Refresh', 'Sticky Header', '120 FPS', 'UI Component'],
+      dartSnippet: `import 'package:flutter/material.dart';
+import 'package:refresh_sticky/refresh_sticky.dart';
 
-// Gói danh sách widget cuộn trong RefreshSticky
-RefreshSticky(
-  onRefresh: () async {
-    await fetchLatestFeed();
-  },
-  child: ListView.builder(
-    itemCount: items.length,
-    itemBuilder: (context, index) => ListTile(
-      title: Text(items[index].title),
+Widget buildFeedList() {
+  return RefreshSticky(
+    onRefresh: () async {
+      await fetchLatestTimelineFeed();
+    },
+    child: ListView.builder(
+      itemCount: feedItems.length,
+      itemBuilder: (context, index) => TimelineCard(data: feedItems[index]),
     ),
-  ),
-)`
+  );
+}`
     }
   ];
 
-  // Chỉ để flutter-monorepo-codebase
+  // Sự thật chuẩn xác 100% về flutter-monorepo-codebase từ chính repository
   readonly monorepoArchitecture: MonorepoArchitecture = {
     name: 'flutter-monorepo-codebase',
-    descriptionVi: 'Bản mẫu Flutter Monorepo chuẩn doanh nghiệp sử dụng Clean Architecture, Pub Workspaces, Dependency Injection và điều phối state độc lập theo tính năng.',
-    descriptionEn: 'An enterprise-grade Flutter Monorepo blueprint built with Clean Architecture, modern Pub Workspaces, Dependency Injection, and feature-driven state coordination.',
     githubUrl: 'https://github.com/CaoGiaHieu-dev/flutter-monorepo-codebase',
+    taglineVi: 'Hệ thống kiến trúc Flutter Monorepo chuẩn công nghiệp · Dart Pub Workspaces bản địa · Đa hệ State Management (MVVM + Provider & BLoC)',
+    taglineEn: 'Industrial-grade Flutter Monorepo Architecture · Native Dart Pub Workspaces · Dual State Management (MVVM + Provider & BLoC)',
+    descriptionVi: 'Dự án kiến trúc ứng dụng Flutter công nghiệp quy mô lớn, thiết kế theo mô hình Micro-packages Monorepo kết hợp nghiêm ngặt nguyên lý Clean Architecture, SOLID và hỗ trợ đồng thời cả MVVM + Provider lẫn BLoC / Cubit. Sử dụng Pub Workspaces bản địa của Dart và bộ công cụ CLI tự động hóa toàn diện.',
+    descriptionEn: 'An enterprise-scale industrial Flutter application architecture designed around the Micro-packages Monorepo model. Strictly enforces Clean Architecture, SOLID, and supports dual state management (MVVM + Provider and BLoC). Powered by native Dart Pub Workspaces and an automated developer CLI toolset.',
+    layers: [
+      {
+        name: 'Host App Shell (app/)',
+        roleVi: 'Vỏ ứng dụng chính, lắp ráp và khởi động toàn bộ hệ thống',
+        roleEn: 'Main Application Shell, assembling & bootstrapping the app',
+        badge: 'app/',
+        detailsVi: 'Chứa entrypoint (main.dart), quản lý boot lifecycle (main_scope.dart), cấu hình đa môi trường Flavors (dev, staging, prod), điểm đăng ký DI trung tâm (injection.dart), và GoRouter assembly.',
+        detailsEn: 'Contains entrypoint (main.dart), boot lifecycle (main_scope.dart), multi-flavor configurations (dev, staging, prod), central DI hub (injection.dart), and GoRouter navigation assembly.',
+        packages: ['app/lib/config', 'app/lib/di', 'app/lib/presentation/navigation', 'app/lib/presentation/providers']
+      },
+      {
+        name: 'Feature Presentation (packages/features/*)',
+        roleVi: 'Các gói tính năng độc lập, giao tiếp qua Domain use cases',
+        roleEn: 'Independent feature packages communicating via Domain use cases',
+        badge: 'features/',
+        detailsVi: 'Mỗi tính năng được module hóa thành một package độc lập, chứa UI Screens, ViewModels/Cubit, và điều phối routing nội bộ.',
+        detailsEn: 'Each feature is decoupled into a dedicated package, encompassing UI screens, ViewModels/Cubits, and internal feature routing.',
+        packages: ['splash', 'onboarding', 'auth', 'dashboard', 'home', 'settings']
+      },
+      {
+        name: 'Domain Layer (packages/domain/*)',
+        roleVi: 'Nghiệp vụ Pure Dart — Tuyệt đối 0 phụ thuộc Flutter SDK',
+        roleEn: 'Pure Dart Business Logic — ZERO Flutter SDK dependencies',
+        badge: 'domain/',
+        detailsVi: 'Trái tim của hệ thống. Hoàn toàn là mã Dart thuần, không phụ thuộc bất kỳ package nào trong workspace và không chứa Flutter SDK. Khai báo Result<T>, AppFailure, Entities và Repository contracts.',
+        detailsEn: 'The core heart of the system. Pure Dart with ZERO workspace dependencies and NO Flutter SDK. Defines Result<T>, AppFailure, BaseEntity, BaseUseCase, and abstract Repository contracts.',
+        packages: ['domain_core (Result<T>, AppFailure)', 'domain_auth (Entities, UseCases)', 'domain_language (Multi-language)']
+      },
+      {
+        name: 'Data Layer (packages/data/*)',
+        roleVi: 'Triển khai tích hợp, lưu trữ cơ sở dữ liệu và Remote API',
+        roleEn: 'Integration implementation, database storage & remote APIs',
+        badge: 'data/',
+        detailsVi: 'Hiện thực hóa các Repository interface từ Domain. Sở hữu SQLite CacheDatabase bằng Drift DAO, Dio HTTP client, Retrofit API services và cơ chế cache nhiều tầng.',
+        detailsEn: 'Implements repository contracts defined by Domain. Owns SQLite CacheDatabase via Drift DAOs, Dio HTTP client, Retrofit API services, and multi-tier caching.',
+        packages: ['data_core (IBaseRepository + CacheDatabase)', 'data_auth (RepositoryImpl, DataSources)', 'data_language']
+      },
+      {
+        name: 'Core Infrastructure (packages/core/*)',
+        roleVi: '11 Micro-packages hạ tầng dùng chung — CHỈ CƠ CHẾ, không chứa feature data',
+        roleEn: '11 Shared infrastructure micro-packages — MECHANISM ONLY, never feature data',
+        badge: 'core/',
+        detailsVi: 'Cung cấp cơ chế nền tảng dùng chung cho toàn bộ workspace: theme & l10n (base_ui), BLoC state, Provider state, logging, network & SSL pinning, storage, database, responsive layout, push notifications và shared UI kit.',
+        detailsEn: 'Foundational cross-cutting mechanisms: theme & l10n (base_ui), BLoC state, Provider state, logging, network with SSL pinning, storage, database, responsive scaling, notifications, and UI kit.',
+        packages: [
+          'core_base_ui', 'bloc_state_management', 'provider_state_management',
+          'core_common', 'core_database', 'core_di', 'core_network',
+          'core_notifications', 'core_responsive', 'core_storage', 'core_ui_kit'
+        ]
+      }
+    ],
+    tools: [
+      {
+        name: 'Android 16KB Page Size Compliance',
+        command: 'dart tools/android_compliance/check.dart',
+        descVi: 'Kiểm tra tính tương thích bộ nhớ trang 16KB bắt buộc trên Android 15+ (Google Play Store compliance).',
+        descEn: 'Validates mandatory 16KB memory page size alignment for Android 15+ (Google Play requirement).',
+        tag: 'Android 15+'
+      },
+      {
+        name: 'Automated Code Review AI',
+        command: 'dart tools/code_review/code_review.dart --all',
+        descVi: 'Tự động kiểm tra chất lượng mã nguồn, quy tắc kiến trúc và bảo mật tích hợp Gemini AI.',
+        descEn: 'Automated architectural and security review powered by Google Gemini AI.',
+        tag: 'Gemini AI'
+      },
+      {
+        name: 'CLI Module Generator',
+        command: 'dart tools/module_generator/generate.dart [type] [name]',
+        descVi: 'Tự động sinh mã khung cho Feature, Domain, Data hoặc Core package mới theo chuẩn Clean Architecture.',
+        descEn: 'CLI generator scaffolding new Feature, Domain, Data, or Core micro-packages compliant with Clean Architecture.',
+        tag: 'CLI Tool'
+      },
+      {
+        name: 'Dependency Version Catalog Sync',
+        command: 'dart tools/dependency_sync.dart',
+        descVi: 'Đồng bộ toàn bộ phiên bản thư viện từ nguồn chân lý tập trung pubspec_dependencies.yaml.',
+        descEn: 'Syncs all package dependencies across workspace from central pubspec_dependencies.yaml.',
+        tag: 'Version Catalog'
+      },
+      {
+        name: 'Workspace Setup & Build Automation',
+        command: 'dart tools/workspace_setup/configure.dart',
+        descVi: 'Thiết lập tự động toàn bộ workspace: pub get, build_runner và sinh mã đa ngôn ngữ l10n trên mọi nền tảng.',
+        descEn: 'One-shot multi-platform workspace setup: pub get, code generation build_runner, and l10n synthesis.',
+        tag: 'Automation'
+      },
+      {
+        name: 'Check Outdated Pub.dev Packages',
+        command: 'dart tools/check_outdated.dart',
+        descVi: 'Quét toàn bộ micro-packages trong workspace và báo cáo các thư viện đã lỗi thời trên Pub.dev.',
+        descEn: 'Scans all micro-packages in workspace and flags outdated dependencies on Pub.dev.',
+        tag: 'Audit'
+      }
+    ],
     structureTree: `flutter-monorepo-codebase/
-├── pubspec.yaml                 # Root workspace manifest with pub workspaces
-├── apps/
-│   └── mobile_app/              # Main Flutter application entry point
-│       └── lib/
-│           ├── app/             # Application routing & theme configuration
-│           └── main.dart        # Entry point with dependency injection boot
-├── packages/
-│   ├── core/                    # Pure Dart utilities, network client & logger
-│   ├── design_system/           # Shared design tokens, widgets & icons
-│   └── features/
-│       ├── auth/                # Data, Domain & Presentation layers
-│       ├── dashboard/           # Feature state & BLoC coordinators
-│       └── profile/             # Domain use cases & repository contracts
-└── tool/
-    └── workspace_analyzer.sh    # Multi-package test & lint validation`
+├── .github/workflows/
+│   └── fastlane.yml               # CI Github Action running Fastlane automatically
+├── app/                           # Host Application (Vỏ ứng dụng chính)
+│   ├── android/ & ios/            # Dự án Android & iOS native
+│   ├── lib/
+│   │   ├── config/                # Môi trường Flavors: dev, staging, prod
+│   │   ├── di/injection.dart      # Điểm đăng ký DI trung tâm
+│   │   ├── presentation/
+│   │   │   ├── navigation/        # GoRouter assembly + shell widgets
+│   │   │   └── providers/         # Global App Shell (AppProvider, DeeplinkProvider)
+│   │   ├── main.dart              # Điểm chạy app chính (entrypoint)
+│   │   └── main_scope.dart        # Quản lý Boot Lifecycle (Splash → RootApp)
+│   └── pubspec.yaml               # Host App config (liên kết sub-packages)
+├── packages/                      # Thư mục Micro-packages độc lập
+│   ├── core/                      # Hạ tầng dùng chung (11 micro-packages)
+│   │   ├── base_ui/               # Theme, LanguageProvider, design tokens (0 widget)
+│   │   ├── bloc_state_management/ # BaseBloc, BaseCubit, BlocViewState<T>
+│   │   ├── provider_state_management/ # BaseProvider, executeOperation, ViewStateModel
+│   │   ├── common/                # Enums, ErrorHandler, AppConfig, extensions
+│   │   ├── database/              # Cơ chế Drift SQLite: IDatabaseHandle, migrations
+│   │   ├── di/                    # DI Hub — mọi contract xuyên package
+│   │   ├── network/               # Dio + Retrofit factory, SSL pinning SPKI
+│   │   ├── notifications/         # Module quản lý thông báo đẩy (Push Notification)
+│   │   ├── responsive/            # Scale theo design size gắn với BuildContext
+│   │   ├── storage/               # StorageManager + StorageValue<T>
+│   │   └── ui_kit/                # core_ui_kit — widget dùng chung cho mọi feature
+│   ├── domain/                    # Micro-packages nghiệp vụ Pure Dart (0 PHỤ THUỘC)
+│   │   ├── core/                  # Result<T>, AppFailure, BaseEntity, BaseUseCase
+│   │   ├── auth/                  # Entities, UseCases, Repository interfaces cho Auth
+│   │   └── language/              # Entities, UseCases cho đa ngôn ngữ
+│   ├── data/                      # Micro-packages triển khai tích hợp
+│   │   ├── core/                  # IBaseRepository + CacheDatabase (Drift DAO)
+│   │   ├── auth/                  # Models, DataSources, RepositoryImpl cho Auth
+│   │   └── language/              # RepositoryImpl cho đa ngôn ngữ
+│   └── features/                  # Các gói tính năng độc lập (Feature Packages)
+│       ├── splash/                # Feature Splash screen
+│       ├── onboarding/            # Onboarding hướng dẫn người dùng mới
+│       ├── auth/                  # Authentication (Login, Register, Forgot Password)
+│       ├── dashboard/             # Chrome shell Bottom Tab host
+│       ├── home/                  # Feature Home Tab
+│       └── settings/              # Feature Settings Tab (tách riêng khỏi Home)
+├── tools/                         # Bộ công cụ dòng lệnh (Developer CLI)
+│   ├── android_compliance/        # Kiểm tra tính tương thích 16KB Page Size (Android 15+)
+│   ├── code_review/               # Công cụ review mã nguồn tự động với Gemini AI
+│   ├── module_generator/          # CLI tạo Feature/Domain/Data/Core package mới
+│   ├── dependency_sync.dart       # Đồng bộ phiên bản thư viện từ catalog tập trung
+│   ├── barrel_generator/          # Script tự động tạo barrel files cho packages
+│   ├── workspace_setup/           # Script thiết lập workspace đa nền tảng
+│   ├── theme_generator/           # Tự động sinh Splash Screen & App Icons
+│   ├── unused_checker/            # Phân tích & dọn dẹp file, assets, bản dịch dư thừa
+│   └── check_outdated.dart        # Kiểm tra thư viện lỗi thời trên pub.dev
+├── pubspec.yaml                   # File cấu hình Pub Workspace (workspace: [...])
+├── pubspec_dependencies.yaml      # Nguồn chân lý phiên bản thư viện (Version Catalog)
+└── README.md                      # Master Technical Manual`
   };
 
-  // Đóng góp cho Flutter Framework & Packages (bao gồm cả Pull Requests và các Issues đã mở)
+  // Đóng góp thực tế cho Flutter Framework & Packages
   readonly contributions: OpenSourceContribution[] = [
+    {
+      id: 'pigeon-equals-hash',
+      category: 'flutter',
+      type: 'pr',
+      repository: 'flutter/packages',
+      referenceNumber: 'Pull Request / Merged',
+      title: '[pigeon] Auto-generating equals and hashCode methods on Pigeon generated data classes',
+      url: 'https://github.com/flutter/packages',
+      descriptionVi: 'Đóng góp mã nguồn và commit xử lý việc tự động tạo phương thức so sánh bằng (equals) và mã băm (hashCode) cho các lớp dữ liệu sinh ra bởi công cụ Pigeon trong flutter/packages.',
+      descriptionEn: 'Code contribution and commit addressing auto-generation of equals and hashCode methods on Pigeon data classes in flutter/packages.',
+      status: 'Merged'
+    },
     {
       id: 'go-router-builder-fromstate',
       category: 'flutter',
       type: 'issue',
       repository: 'flutter/packages',
-      referenceNumber: 'Issue',
+      referenceNumber: 'Issue / Architecture',
       title: '[go_router_builder] RouteExtension._fromState should be public to prevent non-const widgets from previous routes rebuilding',
       url: 'https://github.com/flutter/packages',
       descriptionVi: 'Đề xuất kiến trúc và báo cáo issue trên flutter/packages về việc RouteExtension._fromState nên được công khai (public) nhằm ngăn chặn việc các widget non-const của các route trước đó bị rebuild không cần thiết, tối ưu hóa hiệu năng điều hướng.',
@@ -175,7 +351,7 @@ RefreshSticky(
       category: 'flutter',
       type: 'issue',
       repository: 'flutter/packages',
-      referenceNumber: 'Issue',
+      referenceNumber: 'Issue / Regression',
       title: '[go_router_builder] Generated location difference for route path with or without slash since go_router: 14.2.9',
       url: 'https://github.com/flutter/packages',
       descriptionVi: 'Phát hiện và báo cáo lỗi sai lệch generated location giữa các đường dẫn route có hoặc không có dấu gạch chéo (slash) kể từ bản go_router: 14.2.9.',
@@ -187,95 +363,11 @@ RefreshSticky(
       category: 'flutter',
       type: 'issue',
       repository: 'flutter/packages',
-      referenceNumber: 'Issue',
+      referenceNumber: 'Issue / DX',
       title: '[go_router_builder] Needs to declare field on sub-route data',
       url: 'https://github.com/flutter/packages',
       descriptionVi: 'Báo cáo vấn đề yêu cầu khai báo field trên sub-route data trong trình tạo mã go_router_builder và đề xuất cải thiện trải nghiệm lập trình viên.',
       descriptionEn: 'Reported issue regarding required field declarations on sub-route data in go_router_builder code generator and proposed DX improvements.',
-      status: 'Resolved / Solution Provided'
-    },
-    {
-      id: 'pigeon-equals-hash',
-      category: 'flutter',
-      type: 'pr',
-      repository: 'flutter/packages',
-      referenceNumber: 'Commit / PR',
-      title: '[pigeon] Auto-generating equals and hashCode methods on Pigeon generated data classes',
-      url: 'https://github.com/flutter/packages',
-      descriptionVi: 'Đóng góp mã nguồn và commit xử lý việc tự động tạo phương thức so sánh bằng (equals) và mã băm (hashCode) cho các lớp dữ liệu sinh ra bởi công cụ Pigeon trong flutter/packages.',
-      descriptionEn: 'Code contribution and commit addressing auto-generation of equals and hashCode methods on Pigeon data classes in flutter/packages.',
-      status: 'Merged'
-    },
-    {
-      id: 'flutter-android-mlkit',
-      category: 'flutter',
-      type: 'issue',
-      repository: 'flutter/flutter',
-      referenceNumber: 'Issue',
-      title: 'Flutter Module in Android cannot use package google_mlkit_face_detector (MissingPluginException)',
-      url: 'https://github.com/flutter/flutter',
-      descriptionVi: 'Báo cáo lỗi tích hợp Flutter Module vào ứng dụng native Android khi gọi package google_mlkit_face_detector dẫn đến MissingPluginException trên engine.',
-      descriptionEn: 'Reported Android add-to-app Flutter module issue where embedding google_mlkit_face_detector failed with MissingPluginException on the engine bridge.',
-      status: 'Resolved / Solution Provided'
-    },
-    {
-      id: 'flutter-google-maps-keyboard',
-      category: 'flutter',
-      type: 'discussion',
-      repository: 'flutter/flutter',
-      referenceNumber: '#102550',
-      title: 'Flutter Google Maps resized when keyboard popup on Android',
-      url: 'https://github.com/flutter/flutter/issues/102550',
-      descriptionVi: 'Đóng góp giải pháp kỹ thuật cho issue #102550 trên flutter/flutter sử dụng AndroidGoogleMapsFlutter.useAndroidViewSurface để xử lý triệt để hiện tượng bản đồ Google Maps bị co giãn layout khi bàn phím ảo bật lên trên Android.',
-      descriptionEn: 'Contributed verified technical fix to flutter/flutter issue #102550 utilizing AndroidGoogleMapsFlutter.useAndroidViewSurface to resolve map resizing glitches upon virtual keyboard activation on Android.',
-      status: 'Resolved / Solution Provided'
-    },
-    {
-      id: 'app-version-update-pr',
-      category: 'community',
-      type: 'pr',
-      repository: 'kauemurakami/app_version_update',
-      referenceNumber: 'PR v6.1.3',
-      title: 'Update package_info_plus dependency for latest App Store & Play Store compatibility',
-      url: 'https://github.com/CaoGiaHieu-dev/app_version_update',
-      descriptionVi: 'Pull Request cập nhật dependency package_info_plus tương thích với các bản phát hành kho ứng dụng mới nhất, đã được merge chính thức vào bản release 6.1.3 của package.',
-      descriptionEn: 'Pull Request upgrading package_info_plus dependency for up-to-date app store version check compatibility, successfully merged into official release v6.1.3.',
-      status: 'Merged'
-    },
-    {
-      id: 'inappwebview-dev',
-      category: 'community',
-      type: 'pr',
-      repository: 'pichillilorenzo/inappwebview.dev',
-      referenceNumber: 'Contributions',
-      title: 'Documentation and issue contributions for flutter_inappwebview ecosystem',
-      url: 'https://github.com/CaoGiaHieu-dev',
-      descriptionVi: 'Ghi nhận 6 đóng góp kỹ thuật và tài liệu trên kho inappwebview.dev hỗ trợ hệ sinh thái webview mạnh mẽ nhất của Flutter.',
-      descriptionEn: 'Recorded 6 technical contributions and documentation enhancements for inappwebview.dev supporting the leading Flutter webview plugin.',
-      status: 'Merged'
-    },
-    {
-      id: 'flutter-socket-io',
-      category: 'community',
-      type: 'issue',
-      repository: 'infitio/flutter_socket_io',
-      referenceNumber: 'Issue',
-      title: 'Real-time WebSocket handshake and connection lifecycle diagnostics',
-      url: 'https://github.com/CaoGiaHieu-dev',
-      descriptionVi: 'Báo cáo và phân tích vòng đời kết nối WebSocket socket.io thời gian thực cho ứng dụng di động Flutter.',
-      descriptionEn: 'Reported and analyzed real-time WebSocket socket.io connection lifecycle handling in mobile Flutter clients.',
-      status: 'Resolved / Solution Provided'
-    },
-    {
-      id: 'detectable-text-field',
-      category: 'community',
-      type: 'issue',
-      repository: 'santa112358/detectable_text_field',
-      referenceNumber: 'Issue',
-      title: 'Hashtag and Mention detection behavior edge cases in text input',
-      url: 'https://github.com/CaoGiaHieu-dev',
-      descriptionVi: 'Báo cáo các trường hợp đặc biệt (edge cases) khi nhận diện hashtag và mention trên widget nhập văn bản có định dạng của Flutter.',
-      descriptionEn: 'Reported edge-case input handling for hashtag and mention detection in formatted Flutter text input widgets.',
       status: 'Resolved / Solution Provided'
     }
   ];

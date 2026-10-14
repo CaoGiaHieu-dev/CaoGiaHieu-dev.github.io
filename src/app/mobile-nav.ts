@@ -16,7 +16,7 @@ import { Translation } from './translation';
   template: `
     <!-- Mobile Fixed Bottom Navigation Bar -->
     <nav
-      class="block md:hidden fixed bottom-0 left-0 right-0 z-40 bg-white/90 dark:bg-[#090b10]/95 backdrop-blur-xl border-t border-slate-200/80 dark:border-white/[0.08] shadow-[0_-8px_30px_rgba(0,0,0,0.06)] dark:shadow-[0_-8px_30px_rgba(0,0,0,0.6)] pb-safe transition-colors duration-200"
+      class="block md:hidden fixed bottom-0 left-0 right-0 z-40 bg-white/90 dark:bg-[#08090d]/95 backdrop-blur-2xl border-t border-slate-200/80 dark:border-white/[0.06] shadow-[0_-8px_30px_rgba(0,0,0,0.06)] dark:shadow-[0_-8px_30px_rgba(0,0,0,0.6)] pb-safe transition-colors duration-300"
       aria-label="Mobile Navigation"
     >
       <div class="grid grid-cols-4 items-center h-16 px-1">
@@ -25,10 +25,7 @@ import { Translation } from './translation';
         <a
           href="#packages"
           (click)="setActiveSection('packages')"
-          class="flex flex-col items-center justify-center min-h-[48px] py-1 text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white transition-colors group relative"
-          [class.text-sky-600]="activeSection() === 'packages'"
-          [class.dark:text-sky-400]="activeSection() === 'packages'"
-          [class.font-semibold]="activeSection() === 'packages'"
+          [class]="'flex flex-col items-center justify-center min-h-[48px] py-1 transition-colors group relative ' + tabClass('packages')"
         >
           @if (activeSection() === 'packages') {
             <span class="absolute top-1 w-6 h-0.5 rounded-full bg-sky-500 dark:bg-sky-400"></span>
@@ -43,10 +40,7 @@ import { Translation } from './translation';
         <a
           href="#architecture"
           (click)="setActiveSection('architecture')"
-          class="flex flex-col items-center justify-center min-h-[48px] py-1 text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white transition-colors group relative"
-          [class.text-sky-600]="activeSection() === 'architecture'"
-          [class.dark:text-sky-400]="activeSection() === 'architecture'"
-          [class.font-semibold]="activeSection() === 'architecture'"
+          [class]="'flex flex-col items-center justify-center min-h-[48px] py-1 transition-colors group relative ' + tabClass('architecture')"
         >
           @if (activeSection() === 'architecture') {
             <span class="absolute top-1 w-6 h-0.5 rounded-full bg-sky-500 dark:bg-sky-400"></span>
@@ -61,10 +55,7 @@ import { Translation } from './translation';
         <a
           href="#contributions"
           (click)="setActiveSection('contributions')"
-          class="flex flex-col items-center justify-center min-h-[48px] py-1 text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white transition-colors group relative"
-          [class.text-sky-600]="activeSection() === 'contributions'"
-          [class.dark:text-sky-400]="activeSection() === 'contributions'"
-          [class.font-semibold]="activeSection() === 'contributions'"
+          [class]="'flex flex-col items-center justify-center min-h-[48px] py-1 transition-colors group relative ' + tabClass('contributions')"
         >
           @if (activeSection() === 'contributions') {
             <span class="absolute top-1 w-6 h-0.5 rounded-full bg-sky-500 dark:bg-sky-400"></span>
@@ -79,10 +70,7 @@ import { Translation } from './translation';
         <a
           href="#contact"
           (click)="setActiveSection('contact')"
-          class="flex flex-col items-center justify-center min-h-[48px] py-1 text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white transition-colors group relative"
-          [class.text-sky-600]="activeSection() === 'contact'"
-          [class.dark:text-sky-400]="activeSection() === 'contact'"
-          [class.font-semibold]="activeSection() === 'contact'"
+          [class]="'flex flex-col items-center justify-center min-h-[48px] py-1 transition-colors group relative ' + tabClass('contact')"
         >
           @if (activeSection() === 'contact') {
             <span class="absolute top-1 w-6 h-0.5 rounded-full bg-sky-500 dark:bg-sky-400"></span>
@@ -144,5 +132,11 @@ export class MobileNav implements OnDestroy {
     if (this.observer) {
       this.observer.disconnect();
     }
+  }
+
+  tabClass(section: string): string {
+    return this.activeSection() === section
+      ? 'text-sky-600 dark:text-sky-400 font-semibold'
+      : 'text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white font-medium';
   }
 }

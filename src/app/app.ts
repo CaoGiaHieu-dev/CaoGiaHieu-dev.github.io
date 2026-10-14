@@ -23,12 +23,13 @@ import { Theme } from './theme';
   ],
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-    <div class="min-h-screen bg-[#f8fafc] dark:bg-[#090b10] text-slate-900 dark:text-slate-100 flex flex-col font-sans selection:bg-sky-500/20 dark:selection:bg-sky-500/30 selection:text-sky-900 dark:selection:text-sky-100 relative">
-      <!-- Global tech grid background layer -->
-      <div class="fixed inset-0 bg-tech-grid pointer-events-none z-0"></div>
+    <div class="min-h-screen bg-[#fbfbfd] dark:bg-[#08090d] text-slate-900 dark:text-slate-100 flex flex-col font-sans selection:bg-sky-500/20 dark:selection:bg-sky-500/30 selection:text-sky-900 dark:selection:text-sky-100 relative antialiased">
+      <!-- Subtle dot matrix layer (sub-pixel, low contrast, no ugly graph lines) -->
+      <div class="fixed inset-0 bg-ambient-dots pointer-events-none z-0"></div>
       
-      <!-- Top ambient aurora lighting -->
-      <div class="fixed top-0 left-0 right-0 h-[600px] hero-glow pointer-events-none z-0"></div>
+      <!-- Ambient atmosphere glows -->
+      <div class="fixed top-0 left-0 right-0 h-[680px] ambient-glow-top pointer-events-none z-0"></div>
+      <div class="fixed bottom-0 right-0 w-[500px] h-[500px] ambient-glow-bottom pointer-events-none z-0"></div>
 
       <!-- Main Layout -->
       <div class="relative z-10 flex flex-col min-h-screen">
@@ -47,6 +48,5 @@ import { Theme } from './theme';
   `
 })
 export class App {
-  // Ensure Theme service is initialized
   readonly theme = inject(Theme);
 }
