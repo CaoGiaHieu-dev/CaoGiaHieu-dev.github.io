@@ -68,7 +68,7 @@ export class Theme {
       // Dynamically update mobile browser chrome/status bar color
       const metaTheme = document.getElementById('theme-color-meta');
       if (metaTheme) {
-        metaTheme.setAttribute('content', newTheme === 'dark' ? '#07090e' : '#f8fafc');
+        metaTheme.setAttribute('content', newTheme === 'dark' ? '#090b10' : '#f8fafc');
       }
     }
   }

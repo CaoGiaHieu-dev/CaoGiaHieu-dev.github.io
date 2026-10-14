@@ -14,14 +14,14 @@
     transition: background-color 0.25s ease, color 0.25s ease;
   }
 
-  /* Dark theme body */
+  /* Dark theme body: Deep luxury obsidian */
   html.dark body,
   [data-theme="dark"] body {
-    background-color: #07090e;
-    color: #f1f5f9;
+    background-color: #090b10;
+    color: #f8fafc;
   }
 
-  /* Light theme body */
+  /* Light theme body: Pristine architectural snow */
   html.light body,
   [data-theme="light"] body {
     background-color: #f8fafc;
@@ -33,26 +33,26 @@
   }
 }
 
-/* Custom subtle scrollbar */
+/* Precision engineered scrollbar */
 ::-webkit-scrollbar {
-  width: 6px;
-  height: 6px;
+  width: 5px;
+  height: 5px;
 }
 
 html.dark ::-webkit-scrollbar-track,
 [data-theme="dark"] ::-webkit-scrollbar-track {
-  background: #07090e;
+  background: #090b10;
 }
 
 html.dark ::-webkit-scrollbar-thumb,
 [data-theme="dark"] ::-webkit-scrollbar-thumb {
-  background: #1e293b;
-  border-radius: 4px;
+  background: #1e2638;
+  border-radius: 9999px;
 }
 
 html.dark ::-webkit-scrollbar-thumb:hover,
 [data-theme="dark"] ::-webkit-scrollbar-thumb:hover {
-  background: #334155;
+  background: #2e3b55;
 }
 
 /* Light theme scrollbar */
@@ -64,7 +64,7 @@ html.light ::-webkit-scrollbar-track,
 html.light ::-webkit-scrollbar-thumb,
 [data-theme="light"] ::-webkit-scrollbar-thumb {
   background: #cbd5e1;
-  border-radius: 4px;
+  border-radius: 9999px;
 }
 
 html.light ::-webkit-scrollbar-thumb:hover,
@@ -72,7 +72,7 @@ html.light ::-webkit-scrollbar-thumb:hover,
   background: #94a3b8;
 }
 
-/* Hide scrollbar utility for touch scrolling rows */
+/* Hide scrollbar utility */
 .no-scrollbar::-webkit-scrollbar {
   display: none;
 }
@@ -81,36 +81,62 @@ html.light ::-webkit-scrollbar-thumb:hover,
   scrollbar-width: none;
 }
 
-/* Smooth touch scrolling for horizontal elements on mobile/tablets */
+/* Smooth touch scrolling */
 .touch-scroll {
   -webkit-overflow-scrolling: touch;
   scroll-behavior: smooth;
 }
 
-/* Dot-grid mesh background */
-.bg-mesh-pattern {
-  background-size: 32px 32px;
+/* High-tech Linear Grid Background */
+.bg-tech-grid {
+  background-size: 48px 48px;
   background-image: 
-    radial-gradient(circle at 1px 1px, rgba(255, 255, 255, 0.04) 1px, transparent 0);
+    linear-gradient(to right, rgba(255, 255, 255, 0.035) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(255, 255, 255, 0.035) 1px, transparent 1px);
 }
 
-html.light .bg-mesh-pattern,
-[data-theme="light"] .bg-mesh-pattern {
+html.light .bg-tech-grid,
+[data-theme="light"] .bg-tech-grid {
   background-image: 
-    radial-gradient(circle at 1px 1px, rgba(15, 23, 42, 0.06) 1px, transparent 0);
+    linear-gradient(to right, rgba(15, 23, 42, 0.035) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(15, 23, 42, 0.035) 1px, transparent 1px);
 }
 
-/* Ambient glow spotlight utility */
-.ambient-glow {
-  background: radial-gradient(circle at 50% 0%, rgba(99, 102, 241, 0.08) 0%, rgba(56, 189, 248, 0.02) 40%, transparent 70%);
+/* Hero Ambient Aurora Spotlight */
+.hero-glow {
+  background: radial-gradient(
+    ellipse 85% 60% at 50% -10%,
+    rgba(14, 165, 233, 0.14) 0%,
+    rgba(99, 102, 241, 0.10) 35%,
+    rgba(16, 185, 129, 0.04) 60%,
+    transparent 85%
+  );
 }
 
-html.light .ambient-glow,
-[data-theme="light"] .ambient-glow {
-  background: radial-gradient(circle at 50% 0%, rgba(99, 102, 241, 0.05) 0%, rgba(56, 189, 248, 0.03) 40%, transparent 70%);
+html.light .hero-glow,
+[data-theme="light"] .hero-glow {
+  background: radial-gradient(
+    ellipse 85% 60% at 50% -10%,
+    rgba(14, 165, 233, 0.08) 0%,
+    rgba(99, 102, 241, 0.06) 35%,
+    rgba(16, 185, 129, 0.02) 60%,
+    transparent 85%
+  );
 }
 
-/* iOS Safe Area Padding */
+/* Card Surface Sheen */
+.glass-panel {
+  background-color: rgba(255, 255, 255, 0.85);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+}
+
+html.dark .glass-panel,
+[data-theme="dark"] .glass-panel {
+  background-color: rgba(16, 19, 29, 0.85);
+}
+
+/* Safe area padding */
 .pb-safe {
   padding-bottom: max(1rem, env(safe-area-inset-bottom));
 }

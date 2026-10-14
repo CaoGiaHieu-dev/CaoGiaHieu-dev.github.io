@@ -9,76 +9,78 @@ import { ScrollRevealDirective } from './scroll-reveal';
   imports: [MatIconModule, ScrollRevealDirective],
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-    <section class="relative pt-24 sm:pt-32 md:pt-40 pb-16 sm:pb-20 md:pb-28 overflow-hidden ambient-glow bg-mesh-pattern border-b border-slate-200/80 dark:border-slate-800/80 transition-colors duration-200">
+    <section class="pt-28 pb-16 sm:pt-36 sm:pb-24 border-b border-slate-200/80 dark:border-white/[0.08] relative overflow-hidden transition-colors duration-200">
       <div class="max-w-6xl mx-auto px-4 sm:px-6 relative z-10">
         
-        <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 sm:gap-10 lg:gap-8 items-center">
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-12 items-center">
           
-          <!-- Left Column: Authentic Profile & Responsive Content with Scroll Reveal -->
-          <div appScrollReveal class="lg:col-span-7 space-y-5 sm:space-y-6">
+          <!-- Left Column: Typographic Hierarchy -->
+          <div appScrollReveal class="lg:col-span-7 space-y-6">
             
-            <!-- Clean unboxed metadata kicker with typographic separator -->
-            <div class="inline-flex flex-wrap items-center gap-1.5 sm:gap-2 text-xs text-slate-600 dark:text-slate-400 font-mono">
-              <span class="text-indigo-600 dark:text-indigo-400 font-semibold">{{ data.profile.title }}</span>
-              <span aria-hidden="true" class="text-slate-300 dark:text-slate-600">&middot;</span>
-              <span>{{ i18n.lang() === 'vi' ? data.profile.location : data.profile.locationEn }}</span>
-              <span aria-hidden="true" class="text-slate-300 dark:text-slate-600">&middot;</span>
-              <span class="text-emerald-600 dark:text-emerald-400 font-medium">Pub.dev Author</span>
+            <!-- Category Tag -->
+            <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-mono font-medium bg-sky-500/10 text-sky-700 dark:text-sky-300 border border-sky-500/20">
+              <span class="w-1.5 h-1.5 rounded-full bg-sky-500"></span>
+              <span>Flutter Developer &middot; Pub.dev Package Author</span>
             </div>
 
-            <!-- Main Heading with responsive fluid scale & anti-orphan -->
-            <h1 class="text-2xl xs:text-3xl sm:text-4xl md:text-5xl font-extrabold text-slate-900 dark:text-white tracking-tight leading-[1.18] text-balance break-words">
-              {{ i18n.t().hero.greeting }}
-              <span class="bg-gradient-to-r from-indigo-600 via-sky-600 to-indigo-500 dark:from-indigo-400 dark:via-sky-300 dark:to-indigo-200 bg-clip-text text-transparent">
-                {{ data.profile.name }}
-              </span>.
-              <span class="block text-slate-700 dark:text-slate-300 text-lg sm:text-2xl md:text-3xl font-semibold mt-2">
-                {{ i18n.t().hero.role }}
-              </span>
+            <!-- Main Headline -->
+            <h1 class="text-3xl sm:text-4xl md:text-5xl lg:text-[3.25rem] font-extrabold text-slate-900 dark:text-white tracking-tight leading-[1.15]">
+              {{ i18n.lang() === 'vi' ? 'Kiến trúc Flutter hiệu năng cao & Thư viện bảo mật di động' : 'High-Reliability Flutter Architecture & Core Dart Packages' }}
             </h1>
 
-            <!-- Bio prose -->
-            <p class="text-xs sm:text-sm md:text-base text-slate-600 dark:text-slate-300 max-w-xl leading-relaxed">
-              {{ i18n.t().hero.bio }}
+            <!-- Bio Lead Copy -->
+            <p class="text-base sm:text-lg text-slate-600 dark:text-slate-300 leading-relaxed max-w-2xl">
+              {{ i18n.lang() === 'vi' 
+                ? 'Tác giả 3 thư viện chính thức trên Pub.dev, thiết kế kiến trúc Flutter Monorepo chuẩn doanh nghiệp và trực tiếp đóng góp kỹ thuật cho Google Flutter framework & packages.'
+                : 'Author of 3 published Pub.dev packages, creator of enterprise Flutter Monorepo blueprint, and active open-source contributor to Google Flutter framework & packages.'
+              }}
             </p>
 
-            <!-- 3 Factual Highlights with Responsive Spacing -->
-            <div class="space-y-2.5 sm:space-y-3 pt-1 text-xs sm:text-sm text-slate-700 dark:text-slate-300">
-              <div class="flex items-start gap-2.5">
-                <mat-icon class="text-base leading-none text-emerald-600 dark:text-emerald-400 mt-0.5 shrink-0">verified</mat-icon>
-                <span class="leading-relaxed">{{ i18n.t().hero.highlight1 }}</span>
+            <!-- Key Quantitative Metrics Strip -->
+            <div class="grid grid-cols-3 gap-3 pt-2 max-w-lg">
+              <div class="p-3 rounded-xl bg-white/70 dark:bg-white/[0.04] border border-slate-200/90 dark:border-white/[0.08] shadow-xs">
+                <div class="text-xl sm:text-2xl font-bold font-mono text-sky-600 dark:text-sky-400">3</div>
+                <div class="text-[11px] font-mono text-slate-500 dark:text-slate-400 mt-0.5 truncate">
+                  {{ i18n.lang() === 'vi' ? 'Pub.dev Packages' : 'Pub.dev Packages' }}
+                </div>
               </div>
-              <div class="flex items-start gap-2.5">
-                <mat-icon class="text-base leading-none text-emerald-600 dark:text-emerald-400 mt-0.5 shrink-0">verified</mat-icon>
-                <span class="leading-relaxed">{{ i18n.t().hero.highlight2 }}</span>
+
+              <div class="p-3 rounded-xl bg-white/70 dark:bg-white/[0.04] border border-slate-200/90 dark:border-white/[0.08] shadow-xs">
+                <div class="text-xl sm:text-2xl font-bold font-mono text-indigo-600 dark:text-indigo-400">SPKI</div>
+                <div class="text-[11px] font-mono text-slate-500 dark:text-slate-400 mt-0.5 truncate">
+                  {{ i18n.lang() === 'vi' ? 'SSL Pinning Core' : 'SSL Pinning Core' }}
+                </div>
               </div>
-              <div class="flex items-start gap-2.5">
-                <mat-icon class="text-base leading-none text-emerald-600 dark:text-emerald-400 mt-0.5 shrink-0">verified</mat-icon>
-                <span class="leading-relaxed">{{ i18n.t().hero.highlight3 }}</span>
+
+              <div class="p-3 rounded-xl bg-white/70 dark:bg-white/[0.04] border border-slate-200/90 dark:border-white/[0.08] shadow-xs">
+                <div class="text-xl sm:text-2xl font-bold font-mono text-emerald-600 dark:text-emerald-400">Core</div>
+                <div class="text-[11px] font-mono text-slate-500 dark:text-slate-400 mt-0.5 truncate">
+                  {{ i18n.lang() === 'vi' ? 'Flutter Contributor' : 'Flutter Contributor' }}
+                </div>
               </div>
             </div>
 
-            <!-- Action buttons: Stack cleanly on mobile (<640px), horizontal on tablet/desktop -->
-            <div class="flex flex-col sm:flex-row items-stretch sm:items-center gap-3 pt-3 w-full sm:w-auto">
+            <!-- Action buttons -->
+            <div class="flex flex-col sm:flex-row items-stretch sm:items-center gap-3 pt-3">
               <a
                 href="#packages"
-                class="px-5 py-3 min-h-[44px] rounded-xl bg-indigo-600 hover:bg-indigo-700 text-white text-xs font-semibold shadow-md shadow-indigo-600/25 transition-all hover:scale-[1.01] active:scale-[0.99] flex items-center justify-center gap-2 text-center cursor-pointer"
+                class="px-5 py-3 min-h-[44px] rounded-xl bg-gradient-to-r from-sky-600 to-indigo-600 hover:from-sky-500 hover:to-indigo-500 text-white text-xs font-semibold shadow-md shadow-sky-600/20 transition-all hover:scale-[1.01] active:scale-[0.99] flex items-center justify-center gap-2 cursor-pointer"
               >
-                <mat-icon class="text-sm leading-none">extension</mat-icon>
                 <span>{{ i18n.t().hero.btnPackages }}</span>
+                <mat-icon class="text-sm leading-none">arrow_forward</mat-icon>
               </a>
 
               <a
-                href="#contributions"
-                class="px-5 py-3 min-h-[44px] rounded-xl bg-white hover:bg-slate-100 dark:bg-slate-900/90 dark:hover:bg-slate-800 border border-slate-200 dark:border-slate-800 text-slate-800 dark:text-slate-200 hover:text-slate-900 dark:hover:text-white text-xs font-semibold transition-all hover:scale-[1.01] active:scale-[0.99] flex items-center justify-center gap-2 shadow-xs text-center cursor-pointer"
+                href="#architecture"
+                class="px-5 py-3 min-h-[44px] rounded-xl bg-white hover:bg-slate-50 dark:bg-white/[0.06] dark:hover:bg-white/[0.1] border border-slate-200 dark:border-white/[0.1] text-slate-800 dark:text-white text-xs font-semibold transition-all hover:scale-[1.01] active:scale-[0.99] flex items-center justify-center gap-2 shadow-xs cursor-pointer"
               >
-                <mat-icon class="text-sm leading-none text-indigo-600 dark:text-indigo-400">commit</mat-icon>
+                <mat-icon class="text-sm leading-none text-sky-600 dark:text-sky-400">account_tree</mat-icon>
                 <span>{{ i18n.t().hero.btnContributions }}</span>
               </a>
 
               <a
                 href="#contact"
-                class="px-4 py-3 min-h-[44px] rounded-xl bg-slate-100 hover:bg-slate-200 dark:bg-slate-950/80 dark:hover:bg-slate-900 border border-slate-200 dark:border-slate-800 text-slate-700 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white text-xs font-mono transition-colors flex items-center justify-center gap-1.5 text-center cursor-pointer"
+                class="px-4 py-3 min-h-[44px] rounded-xl bg-transparent hover:bg-slate-100 dark:hover:bg-white/[0.05] text-slate-700 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white text-xs font-medium font-mono transition-colors flex items-center justify-center gap-1.5 cursor-pointer"
               >
                 <mat-icon class="text-xs leading-none text-slate-500 dark:text-slate-400">mail</mat-icon>
                 <span>{{ i18n.t().hero.btnContact }}</span>
@@ -87,62 +89,65 @@ import { ScrollRevealDirective } from './scroll-reveal';
 
           </div>
 
-          <!-- Right Column: Code Snippet Card (Scaled for mobile touch screens) with Scroll Reveal -->
-          <div appScrollReveal [delay]="140" class="lg:col-span-5 w-full max-w-full">
-            <div class="rounded-2xl bg-slate-900 dark:bg-gradient-to-b dark:from-slate-900/95 dark:to-slate-950/95 border border-slate-300 dark:border-slate-800/90 overflow-hidden shadow-xl shadow-slate-200/50 dark:shadow-2xl backdrop-blur-xl transition-colors">
-              <!-- Window top bar -->
-              <div class="px-4 py-3 bg-slate-950 dark:bg-[#0a0e18] border-b border-slate-800/90 flex items-center justify-between">
+          <!-- Right Column: macOS Studio Code Window -->
+          <div appScrollReveal [delay]="140" class="lg:col-span-5 w-full">
+            <div class="rounded-2xl bg-[#0d1017] border border-slate-700/60 dark:border-white/[0.12] overflow-hidden shadow-2xl shadow-sky-950/20 backdrop-blur-xl">
+              
+              <!-- Window top bar with traffic lights -->
+              <div class="px-4 py-3 bg-[#161b26] border-b border-slate-800/80 flex items-center justify-between">
                 <div class="flex items-center gap-2">
-                  <span class="w-2.5 h-2.5 rounded-full bg-slate-700"></span>
-                  <span class="w-2.5 h-2.5 rounded-full bg-slate-700"></span>
-                  <span class="w-2.5 h-2.5 rounded-full bg-slate-700"></span>
-                  <span class="ml-2 text-xs font-mono text-slate-400 truncate max-w-[170px] sm:max-w-none">
-                    http_security_pinning: ^2.0.0
+                  <span class="w-3 h-3 rounded-full bg-[#ff5f56] inline-block"></span>
+                  <span class="w-3 h-3 rounded-full bg-[#ffbd2e] inline-block"></span>
+                  <span class="w-3 h-3 rounded-full bg-[#27c93f] inline-block"></span>
+                  <span class="ml-2 text-xs font-mono text-slate-400 truncate flex items-center gap-1.5">
+                    <span class="text-sky-400">dart</span>
+                    <span>http_security_pinning.dart</span>
                   </span>
                 </div>
                 <a
                   href="https://pub.dev/packages/http_security_pinning"
                   target="_blank"
                   rel="noopener noreferrer"
-                  class="text-[11px] font-mono text-indigo-400 hover:text-indigo-300 hover:underline flex items-center gap-1 shrink-0"
+                  class="text-[11px] font-mono text-sky-400 hover:text-sky-300 flex items-center gap-1"
                 >
                   <span>pub.dev</span>
-                  <mat-icon class="text-[10px] leading-none">arrow_outward</mat-icon>
+                  <mat-icon class="text-[10px] leading-none">open_in_new</mat-icon>
                 </a>
               </div>
 
-              <!-- Real code snippet with smooth horizontal touch-scrolling -->
-              <div class="p-3 sm:p-4 font-mono text-[11px] sm:text-xs text-slate-300 leading-relaxed overflow-x-auto touch-scroll bg-[#060910] max-h-[350px]">
-                <pre class="font-mono text-indigo-200 whitespace-pre"><code><span class="text-slate-500">// SPKI SHA-256 Pinning with drop-in HttpClient</span>
+              <!-- Code Editor Body -->
+              <div class="p-4 sm:p-5 font-mono text-xs text-slate-300 leading-relaxed overflow-x-auto touch-scroll bg-[#0a0d14] max-h-[380px]">
+                <pre class="font-mono text-[11px] sm:text-xs text-slate-300 whitespace-pre"><code><span class="text-slate-500">// SPKI SHA-256 Pinning with HttpClient</span>
 <span class="text-purple-400">import</span> <span class="text-emerald-300">'package:http_security_pinning/http_security_pinning.dart'</span>;
 
-<span class="text-purple-400">final</span> client = HttpCertificatePinning.createHttpClient(
+<span class="text-slate-500">// Intercepts and blocks MITM proxy attacks</span>
+<span class="text-purple-400">final</span> client = HttpCertificatePinning.<span class="text-sky-300">createHttpClient</span>(
   allowedPins: [
-    <span class="text-emerald-300">'SPKI:r/mIkG3eEpVdm+u/ko/cwxzOMo1bk4TyHIlByibiA5E='</span>,
+    <span class="text-amber-300">'SPKI:r/mIkG3eEpVdm+u/ko/cwxzOMo1bk4TyHIlByibiA5E='</span>,
   ],
   timeout: <span class="text-purple-400">const</span> Duration(seconds: <span class="text-amber-300">15</span>),
 );
 
-<span class="text-slate-500">// Intercepts and blocks MITM proxy handshakes</span>
-<span class="text-purple-400">final</span> request = <span class="text-purple-400">await</span> client.getUrl(
-  Uri.parse(<span class="text-emerald-300">'https://api.yourdomain.com/v1/auth'</span>),
+<span class="text-purple-400">final</span> request = <span class="text-purple-400">await</span> client.<span class="text-sky-300">getUrl</span>(
+  Uri.<span class="text-sky-300">parse</span>(<span class="text-emerald-300">'https://api.domain.com/v1/auth'</span>),
 );
-<span class="text-purple-400">final</span> response = <span class="text-purple-400">await</span> request.close();</code></pre>
+<span class="text-purple-400">final</span> response = <span class="text-purple-400">await</span> request.<span class="text-sky-300">close</span>();</code></pre>
               </div>
 
-              <!-- Terminal footer with touch-friendly copy action -->
-              <div class="px-4 py-3 bg-slate-950 dark:bg-[#0a0e18] border-t border-slate-800/90 flex items-center justify-between gap-2 text-xs text-slate-400 font-mono">
-                <span class="text-slate-300 text-[11px] truncate">flutter pub add http_security_pinning</span>
+              <!-- Terminal Command Footer -->
+              <div class="px-4 py-3 bg-[#11151f] border-t border-slate-800/80 flex items-center justify-between gap-2 text-xs font-mono">
+                <span class="text-sky-300 text-[11px] truncate select-all">flutter pub add http_security_pinning</span>
                 <button
                   type="button"
                   (click)="copyInstallCommand()"
-                  class="text-indigo-400 hover:text-indigo-300 text-[11px] flex items-center gap-1.5 cursor-pointer min-h-[36px] px-2 rounded-lg hover:bg-slate-800 shrink-0 transition-colors"
+                  class="text-slate-300 hover:text-white text-[11px] flex items-center gap-1.5 cursor-pointer min-h-[32px] px-2.5 rounded-lg bg-white/[0.08] hover:bg-white/[0.15] shrink-0 transition-colors"
                   aria-label="Copy install command"
                 >
                   <mat-icon class="text-xs leading-none">{{ copied() ? 'check' : 'content_copy' }}</mat-icon>
                   <span>{{ copied() ? i18n.t().hero.copied : i18n.t().hero.copy }}</span>
                 </button>
               </div>
+
             </div>
           </div>
 
