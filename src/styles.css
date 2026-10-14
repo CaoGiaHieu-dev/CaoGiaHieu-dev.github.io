@@ -1,5 +1,7 @@
 @import "tailwindcss";
 
+@custom-variant dark (&:where(.dark, .dark *));
+
 @layer base {
   html {
     scroll-behavior: smooth;
@@ -8,9 +10,22 @@
 
   body {
     font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    overflow-x: hidden;
+    transition: background-color 0.25s ease, color 0.25s ease;
+  }
+
+  /* Dark theme body */
+  html.dark body,
+  [data-theme="dark"] body {
     background-color: #07090e;
     color: #f1f5f9;
-    overflow-x: hidden;
+  }
+
+  /* Light theme body */
+  html.light body,
+  [data-theme="light"] body {
+    background-color: #f8fafc;
+    color: #0f172a;
   }
   
   code, pre, .font-mono {
@@ -18,23 +33,43 @@
   }
 }
 
-/* Custom subtle dark scrollbar for desktop */
+/* Custom subtle scrollbar */
 ::-webkit-scrollbar {
   width: 6px;
   height: 6px;
 }
 
-::-webkit-scrollbar-track {
+html.dark ::-webkit-scrollbar-track,
+[data-theme="dark"] ::-webkit-scrollbar-track {
   background: #07090e;
 }
 
-::-webkit-scrollbar-thumb {
+html.dark ::-webkit-scrollbar-thumb,
+[data-theme="dark"] ::-webkit-scrollbar-thumb {
   background: #1e293b;
   border-radius: 4px;
 }
 
-::-webkit-scrollbar-thumb:hover {
+html.dark ::-webkit-scrollbar-thumb:hover,
+[data-theme="dark"] ::-webkit-scrollbar-thumb:hover {
   background: #334155;
+}
+
+/* Light theme scrollbar */
+html.light ::-webkit-scrollbar-track,
+[data-theme="light"] ::-webkit-scrollbar-track {
+  background: #f1f5f9;
+}
+
+html.light ::-webkit-scrollbar-thumb,
+[data-theme="light"] ::-webkit-scrollbar-thumb {
+  background: #cbd5e1;
+  border-radius: 4px;
+}
+
+html.light ::-webkit-scrollbar-thumb:hover,
+[data-theme="light"] ::-webkit-scrollbar-thumb:hover {
+  background: #94a3b8;
 }
 
 /* Hide scrollbar utility for touch scrolling rows */
@@ -52,16 +87,27 @@
   scroll-behavior: smooth;
 }
 
-/* Subtle dot-grid mesh background */
+/* Dot-grid mesh background */
 .bg-mesh-pattern {
   background-size: 32px 32px;
   background-image: 
     radial-gradient(circle at 1px 1px, rgba(255, 255, 255, 0.04) 1px, transparent 0);
 }
 
+html.light .bg-mesh-pattern,
+[data-theme="light"] .bg-mesh-pattern {
+  background-image: 
+    radial-gradient(circle at 1px 1px, rgba(15, 23, 42, 0.06) 1px, transparent 0);
+}
+
 /* Ambient glow spotlight utility */
 .ambient-glow {
   background: radial-gradient(circle at 50% 0%, rgba(99, 102, 241, 0.08) 0%, rgba(56, 189, 248, 0.02) 40%, transparent 70%);
+}
+
+html.light .ambient-glow,
+[data-theme="light"] .ambient-glow {
+  background: radial-gradient(circle at 50% 0%, rgba(99, 102, 241, 0.05) 0%, rgba(56, 189, 248, 0.03) 40%, transparent 70%);
 }
 
 /* iOS Safe Area Padding */

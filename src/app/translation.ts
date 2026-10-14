@@ -11,6 +11,13 @@ export interface Translations {
     pubDev: string;
     github: string;
   };
+  theme: {
+    toggle: string;
+    light: string;
+    dark: string;
+    switchToLight: string;
+    switchToDark: string;
+  };
   hero: {
     kicker: string;
     greeting: string;
@@ -46,14 +53,24 @@ export interface Translations {
     pinningTestValid: string;
     pinningTestInvalid: string;
     pinningReset: string;
+    pinningTargetHost: string;
+    pinningAllowedSpki: string;
+    pinningAwaitingStatus: string;
+    pinningSuccessTitle: string;
+    pinningSuccessDesc: string;
+    pinningBlockedTitle: string;
+    pinningBlockedDesc: string;
     stickyTrigger: string;
     stickyReloading: string;
     stickyDone: string;
+    stickyHeaderTitle: string;
+    stickyItem1: string;
+    stickyItem2: string;
+    stickyItem3: string;
   };
   architecture: {
     kicker: string;
     title: string;
-    subtitle: string;
     viewRepo: string;
     treeTitle: string;
     treeSubtitle: string;
@@ -73,7 +90,7 @@ export interface Translations {
     filterAll: string;
     filterFlutter: string;
     filterCommunity: string;
-    viewLink: string;
+    viewOnGithub: string;
     typePr: string;
     typeIssue: string;
     typeDiscussion: string;
@@ -117,6 +134,13 @@ const VI_TRANSLATIONS: Translations = {
     pubDev: 'pub.dev',
     github: 'GitHub',
   },
+  theme: {
+    toggle: 'Giao diện',
+    light: 'Sáng',
+    dark: 'Tối',
+    switchToLight: 'Chuyển sang giao diện Sáng',
+    switchToDark: 'Chuyển sang giao diện Tối',
+  },
   hero: {
     kicker: 'Flutter Developer · TP. Hồ Chí Minh · Tác giả Pub.dev',
     greeting: 'Xin chào, tôi là',
@@ -129,87 +153,97 @@ const VI_TRANSLATIONS: Translations = {
     btnContributions: 'Đóng góp Flutter & Issues',
     btnContact: 'Kênh liên hệ chính thức',
     copy: 'Sao chép',
-    copied: 'Đã chép',
+    copied: 'Đã sao chép',
     snippetTitle: 'Mã nguồn thực tế: http_security_pinning: ^2.0.0',
   },
   packages: {
-    kicker: '01 · Pub.dev Registry chính thức',
+    kicker: '01 · Danh mục chính thức trên Pub.dev',
     title: 'Các Package đã phát hành trên Pub.dev',
-    subtitle: 'Các package Dart và Flutter do Cao Gia Hiếu phát triển, giải quyết bài toán bảo mật mạng, ghi log chuẩn mực và widget cuộn ghim giao diện.',
+    subtitle: 'Mã nguồn mở Dart và Flutter do Cao Gia Hiếu phát triển độc lập, giải quyết bài toán bảo mật mạng, giám sát nhật ký có cấu trúc và thanh chỉ số cuộn sticky.',
     viewOnPubDev: 'Xem trên Pub.dev',
     viewCode: 'Xem mã nguồn mẫu',
     close: 'Đóng',
     openPubDev: 'Mở trang Pub.dev',
-    playgroundTitle: 'Bàn thử nghiệm tương tác 3 Packages',
-    playgroundSubtitle: 'Kiểm tra trực quan cách thức hoạt động thực tế của từng package ngay trên trình duyệt.',
+    playgroundTitle: 'Bàn thử nghiệm tương tác 3 Package',
+    playgroundSubtitle: 'Kiểm tra và tương tác trực tiếp cơ chế hoạt động thực tế của từng package ngay trên trình duyệt.',
     loggerTab: 'dynamic_logger (v0.5.0)',
     pinningTab: 'http_security_pinning (v2.0.0)',
     stickyTab: 'refresh_sticky (v0.1.2)',
-    loggerTriggerInfo: 'Ghi Log Info',
-    loggerTriggerWarn: 'Ghi Log Warning',
-    loggerTriggerError: 'Ghi Log Error + Trace',
-    loggerClear: 'Xóa màn hình console',
+    loggerTriggerInfo: 'Phát Log Info',
+    loggerTriggerWarn: 'Phát Log Cảnh báo',
+    loggerTriggerError: 'Phát Log Lỗi + Trace',
+    loggerClear: 'Xóa màn hình Log',
     pinningTestValid: 'Kiểm tra SPKI Hợp lệ (Cho phép)',
-    pinningTestInvalid: 'Mô phỏng MITM / Sai Pin (Chặn TLS)',
+    pinningTestInvalid: 'Giả lập tấn công MITM (Chặn TLS)',
     pinningReset: 'Đặt lại trạng thái',
-    stickyTrigger: 'Kích hoạt kéo làm mới (Pull-to-refresh)',
-    stickyReloading: 'Đang ghim vị trí và tải dữ liệu mới...',
-    stickyDone: 'Tải dữ liệu mới thành công (120 FPS)',
+    pinningTargetHost: 'Máy chủ đích:',
+    pinningAllowedSpki: 'Khóa ghim SPKI hợp lệ:',
+    pinningAwaitingStatus: 'Trạng thái: Đang chờ khởi tạo kết nối...',
+    pinningSuccessTitle: 'Bắt tay TLS 1.3 Thành công · Đã xác minh SPKI SHA-256',
+    pinningSuccessDesc: 'Mã băm SHA-256 khóa công khai của server khớp hoàn toàn với danh sách AllowedPins. Dữ liệu HTTP 200 OK được giải mã an toàn qua dart:io HttpClient.',
+    pinningBlockedTitle: 'Đã chặn đứng tấn công MITM · HandshakeException: Pin Mismatch',
+    pinningBlockedDesc: 'Phát hiện chứng chỉ giả mạo từ proxy can thiệp. http_security_pinning lập tức ngắt socket trước khi dữ liệu nhạy cảm được gửi đi.',
+    stickyTrigger: 'Kích hoạt Kéo để làm mới',
+    stickyReloading: 'Header đang được ghim sticky, tải dữ liệu mới...',
+    stickyDone: 'Làm mới thành công ở tốc độ 120 FPS',
+    stickyHeaderTitle: 'Thanh trạng thái ghim cố định (Sticky Header)',
+    stickyItem1: 'Mục 1: Tải dữ liệu danh sách đồng bộ (Đã lưu cache)',
+    stickyItem2: 'Mục 2: Giám sát đo lường mạng theo thời gian thực',
+    stickyItem3: 'Mục 3: Cuộn mượt mà không giật khung hình (120 FPS)',
   },
   architecture: {
-    kicker: '02 · Kiến trúc & Repository tiêu biểu',
+    kicker: '02 · Kiến trúc & Kho mã nguồn tiêu biểu',
     title: 'flutter-monorepo-codebase',
-    subtitle: 'Bản mẫu Flutter Monorepo mở rộng chuẩn Clean Architecture, Pub Workspaces, Dependency Injection và quản lý state độc lập theo từng module tính năng.',
-    viewRepo: 'Xem Repository trên GitHub',
-    treeTitle: 'Sơ đồ cây thư mục Monorepo Workspace',
-    treeSubtitle: 'Pub Workspaces + Clean Architecture Layers',
-    pillar1Title: 'Pub Workspaces & Phân tách module độc lập',
-    pillar1Detail: 'Ứng dụng tính năng Dart Pub Workspaces chính thức để chia nhỏ feature modules, design system và core utilities độc lập, tránh phụ thuộc chéo.',
-    pillar2Title: 'Clean Architecture (Data - Domain - Presentation)',
-    pillar2Detail: 'Phân tách rạch ròi giữa thực thể nghiệp vụ (pure Dart domain logic) và tầng hạ tầng mạng, đảm bảo 100% khả năng kiểm thử unit test độc lập.',
-    pillar3Title: 'Dependency Injection & State đa tầng',
-    pillar3Detail: 'Định tuyến dịch vụ qua get_it/injectable kết hợp BLoC/Cubit, đảm bảo luồng dữ liệu 1 chiều ổn định và không bao giờ nghẽn frame UI.',
-    pillar4Title: 'CI/CD thống nhất & Kiểm định chất lượng',
-    pillar4Detail: 'Bộ script phân tích cú pháp tĩnh và kiểm thử tự động đồng thời trên toàn bộ các package trong monorepo trước khi build.',
+    viewRepo: 'Xem kho mã nguồn GitHub',
+    treeTitle: 'Cấu trúc thư mục Monorepo chuẩn hóa',
+    treeSubtitle: 'Dart Melos Workspace · Clean Architecture · BLoC đa tầng',
+    pillar1Title: 'Kiến trúc sạch đa tầng (Clean Architecture)',
+    pillar1Detail: 'Phân tách nghiêm ngặt Presentation, Domain, Data và Core layer. Domain layer hoàn toàn độc lập với Flutter SDK.',
+    pillar2Title: 'Dart Pub Workspace & Melos',
+    pillar2Detail: 'Quản lý nhiều package phụ thuộc nội bộ mà không cần publish lên Pub.dev trong quá trình phát triển tính năng.',
+    pillar3Title: 'State Management BLoC / Cubit',
+    pillar3Detail: 'Luồng dữ liệu một chiều dự đoán được, testable tuyệt đối với bloc_test, tích hợp dynamic_logger tự động.',
+    pillar4Title: 'CI/CD & Chất lượng mã nguồn nghiêm ngặt',
+    pillar4Detail: 'Quy chuẩn linter chặt chẽ, tự động hóa kiểm tra tĩnh (analyze), unit tests và build ma trận Android/iOS.',
   },
   contributions: {
-    kicker: '03 · Đóng góp mã nguồn mở',
+    kicker: '03 · Hoạt động cộng đồng mã nguồn mở',
     title: 'Đóng góp cho Flutter Framework & Packages',
-    subtitle: 'Các Pull Request và Issue kỹ thuật do Cao Gia Hiếu đóng góp trực tiếp cho kho mã nguồn của Google (flutter/flutter, flutter/packages) và các package cộng đồng.',
+    subtitle: 'Các Pull Request đã được merge, Issue kỹ thuật sâu và thảo luận tại các repository cốt lõi của hệ sinh thái Flutter Google.',
     filterAll: 'Tất cả đóng góp',
-    filterFlutter: 'Flutter Framework & Packages (Google)',
-    filterCommunity: 'Package hệ sinh thái cộng đồng',
-    viewLink: 'Xem trên GitHub',
-    typePr: 'Pull Request / Commit',
-    typeIssue: 'Technical Issue / Proposal',
-    typeDiscussion: 'Kỹ thuật & Giải pháp',
-    statusMerged: 'Đã Merged / Đóng góp chính thức',
-    statusOpen: 'Đang mở (Open)',
-    statusResolved: 'Đã giải quyết / Đưa ra giải pháp',
-    totalStats: 'Đóng góp ghi nhận',
+    filterFlutter: 'Flutter Framework & Packages',
+    filterCommunity: 'Cộng đồng & Mở rộng',
+    viewOnGithub: 'Xem trên GitHub',
+    typePr: 'Pull Request',
+    typeIssue: 'Kỹ thuật / Issue',
+    typeDiscussion: 'Thảo luận kiến trúc',
+    statusMerged: 'ĐÃ MERGE',
+    statusOpen: 'ĐANG MỞ',
+    statusResolved: 'ĐÃ XỬ LÝ',
+    totalStats: '3 PRs đã merge · 2 Issues kỹ thuật cốt lõi',
   },
   contact: {
-    kicker: '04 · Kênh liên hệ chính thức',
-    title: 'Kênh liên hệ chính thức với Cao Gia Hiếu',
-    subtitle: 'Kênh kết nối chính thức phục vụ trao đổi kỹ thuật, hợp tác phát triển ứng dụng di động Flutter và bảo trì các package mã nguồn mở.',
-    primaryEmail: 'Email liên hệ chính thức',
-    githubProfile: 'Hồ sơ GitHub',
-    social: 'Kênh Facebook',
-    location: 'Địa điểm: TP. Hồ Chí Minh, Việt Nam',
-    timezone: 'Múi giờ: UTC+7 (Indochina Time)',
+    kicker: '04 · Kênh liên hệ và xác thực',
+    title: 'Liên hệ trực tiếp với Cao Gia Hiếu',
+    subtitle: 'Sẵn sàng trao đổi về cơ hội hợp tác phát triển Flutter, tư vấn kiến trúc Monorepo hoặc trao đổi kỹ thuật chuyên sâu.',
+    primaryEmail: 'Kênh Email công việc chính thức',
+    githubProfile: 'Hồ sơ kỹ sư trên GitHub',
+    social: 'Mạng xã hội & Cộng đồng',
+    location: 'TP. Hồ Chí Minh, Việt Nam',
+    timezone: 'Múi giờ UTC+7 (Indochina Time)',
     copyEmail: 'Sao chép Email',
-    copied: 'Đã sao chép vào bộ nhớ tạm!',
-    openMail: 'Gửi thư qua ứng dụng Mail',
-    availableNote: 'Thường phản hồi trong vòng 24 giờ qua email chính thức.',
-    reachOut: 'Bạn có dự án Flutter cần tối ưu hóa hoặc muốn trao đổi chuyên môn? Vui lòng gửi email trực tiếp:',
+    copied: 'Đã sao chép Email!',
+    openMail: 'Gửi Email trực tiếp',
+    availableNote: 'Phản hồi trong vòng 24 giờ làm việc. Cam kết chỉ sử dụng thông tin liên lạc cho mục đích kỹ thuật và công việc.',
+    reachOut: 'Kết nối qua các kênh',
   },
   footer: {
-    headline: 'Flutter Developer từ Việt Nam. Tác giả của dynamic_logger, http_security_pinning, refresh_sticky trên Pub.dev, tác giả flutter-monorepo-codebase và contributor cho Flutter framework.',
-    locationNote: 'CaoGiaHieu-dev.github.io · TP. Hồ Chí Minh, Việt Nam',
-    sectionsTitle: 'Danh mục',
-    channelsTitle: 'Kênh xác thực',
-    googleVerified: 'Google Search Console Đã xác thực',
-    rights: 'Mọi quyền được bảo lưu.',
+    headline: 'Flutter Developer chuyên sâu về kiến trúc hệ thống, an ninh ứng dụng và công cụ mã nguồn mở cho hệ sinh thái Dart/Flutter.',
+    locationNote: 'Làm việc tại TP. Hồ Chí Minh, Việt Nam (UTC+7)',
+    sectionsTitle: 'Điều hướng nhanh',
+    channelsTitle: 'Kênh xác minh chính thức',
+    googleVerified: 'Google Search Console Đã xác minh',
+    rights: 'Bản quyền nội dung thuộc về Cao Gia Hiếu (@CaoGiaHieu-dev).',
     backToTop: 'Về đầu trang ↑',
   },
 };
@@ -222,6 +256,13 @@ const EN_TRANSLATIONS: Translations = {
     contact: 'Official Contact',
     pubDev: 'pub.dev',
     github: 'GitHub',
+  },
+  theme: {
+    toggle: 'Theme',
+    light: 'Light',
+    dark: 'Dark',
+    switchToLight: 'Switch to light mode',
+    switchToDark: 'Switch to dark mode',
   },
   hero: {
     kicker: 'Flutter Developer · Ho Chi Minh City · Pub.dev Author',
@@ -258,116 +299,98 @@ const EN_TRANSLATIONS: Translations = {
     pinningTestValid: 'Verify Valid SPKI Pin (Allow)',
     pinningTestInvalid: 'Simulate MITM / Bad Pin (Reject TLS)',
     pinningReset: 'Reset State',
+    pinningTargetHost: 'Target Host:',
+    pinningAllowedSpki: 'Allowed SPKI Pin:',
+    pinningAwaitingStatus: 'Status: Awaiting handshake initiation...',
+    pinningSuccessTitle: 'TLS 1.3 Handshake Successful · SPKI SHA-256 Verified',
+    pinningSuccessDesc: 'Server Public Key SHA-256 hash matches AllowedPins whitelist perfectly. HTTP 200 OK payload decrypted securely via dart:io HttpClient.',
+    pinningBlockedTitle: 'MITM Attack Intercepted · HandshakeException: Pin Mismatch',
+    pinningBlockedDesc: 'Untrusted/spoofed certificate detected from proxy or intermediary. http_security_pinning immediately terminates socket before transmitting sensitive data.',
     stickyTrigger: 'Trigger Pull-to-Refresh',
     stickyReloading: 'Header pinned sticky, fetching new records...',
     stickyDone: 'Refreshed successfully at 120 FPS',
+    stickyHeaderTitle: 'Sticky Refresh Indicator',
+    stickyItem1: 'Row 1: Synchronized list feed payload (Cached)',
+    stickyItem2: 'Row 2: Real-time network telemetry snapshot',
+    stickyItem3: 'Row 3: Smooth UI scroll without frame drops (120 FPS)',
   },
   architecture: {
     kicker: '02 · Featured Architecture & Repository',
     title: 'flutter-monorepo-codebase',
-    subtitle: 'An enterprise Flutter Monorepo blueprint built with Clean Architecture, modern Pub Workspaces, Dependency Injection, and feature-driven state coordination.',
-    viewRepo: 'View Repository on GitHub',
-    treeTitle: 'Monorepo Workspace Directory Blueprint',
-    treeSubtitle: 'Pub Workspaces + Clean Architecture Layers',
-    pillar1Title: 'Pub Workspaces & Modular Package Isolation',
-    pillar1Detail: 'Leverages official Dart Pub Workspaces to split feature modules, design systems, and core utilities independently without circular dependencies.',
-    pillar2Title: 'Clean Architecture (Data - Domain - Presentation)',
-    pillar2Detail: 'Strict decoupling between pure Dart domain logic and infrastructure data sources, guaranteeing 100% isolated unit testability.',
-    pillar3Title: 'Dependency Injection & Multi-Layer State',
-    pillar3Detail: 'Service location via get_it/injectable combined with BLoC/Cubit for predictable unidirectional data flow with zero UI frame drops.',
-    pillar4Title: 'Unified CI/CD & Automated Quality Gates',
-    pillar4Detail: 'Monorepo-aware static analysis and automated test scripts executed across all workspace packages simultaneously prior to builds.',
+    viewRepo: 'View GitHub Repository',
+    treeTitle: 'Standardized Monorepo File Hierarchy',
+    treeSubtitle: 'Dart Melos Workspace · Clean Architecture · Multi-Tier BLoC',
+    pillar1Title: 'Clean Layered Architecture',
+    pillar1Detail: 'Strict boundary between Presentation, Domain, Data, and Core packages. Domain is purely Dart with zero SDK lock-in.',
+    pillar2Title: 'Dart Pub Workspace & Melos',
+    pillar2Detail: 'Seamlessly manages multiple co-dependent packages locally without needing pre-releases published on pub.dev.',
+    pillar3Title: 'Predictable BLoC / Cubit State',
+    pillar3Detail: 'Unidirectional data flows, deterministic state emission testable with bloc_test, and deep dynamic_logger hooks.',
+    pillar4Title: 'Strict CI/CD & Static Analysis',
+    pillar4Detail: 'Comprehensive lint rules, automated static analyzer pipelines, unit test suites, and Android/iOS build matrix.',
   },
   contributions: {
-    kicker: '03 · Open Source Contributions',
+    kicker: '03 · Open Source Ecosystem Contributions',
     title: 'Contributions to Flutter Framework & Packages',
-    subtitle: 'Pull Requests and technical issues submitted directly by Cao Gia Hiếu to Google Flutter repositories (flutter/flutter, flutter/packages) and community packages.',
+    subtitle: 'Merged Pull Requests, deep technical issues, and architectural discussions within Google Flutter core repositories.',
     filterAll: 'All Contributions',
-    filterFlutter: 'Flutter Framework & Packages (Google)',
-    filterCommunity: 'Ecosystem & Community Packages',
-    viewLink: 'View on GitHub',
-    typePr: 'Pull Request / Commit',
-    typeIssue: 'Technical Issue / Proposal',
-    typeDiscussion: 'Technical Fix / Discussion',
-    statusMerged: 'Merged / Official Contribution',
-    statusOpen: 'Open',
-    statusResolved: 'Resolved / Solution Provided',
-    totalStats: 'Recorded Contributions',
+    filterFlutter: 'Flutter Framework & Packages',
+    filterCommunity: 'Ecosystem & Community',
+    viewOnGithub: 'View on GitHub',
+    typePr: 'Pull Request',
+    typeIssue: 'Technical Issue',
+    typeDiscussion: 'RFC / Discussion',
+    statusMerged: 'MERGED',
+    statusOpen: 'OPEN',
+    statusResolved: 'RESOLVED',
+    totalStats: '3 Merged PRs · 2 Core Technical Issues',
   },
   contact: {
-    kicker: '04 · Official Channels',
-    title: 'Official Channels & Direct Contact',
-    subtitle: 'Direct communication channels for technical discussions, Flutter mobile collaborations, and open-source inquiries.',
-    primaryEmail: 'Official Primary Email',
-    githubProfile: 'GitHub Profile',
-    social: 'Facebook Channel',
-    location: 'Location: Ho Chi Minh City, Vietnam',
-    timezone: 'Timezone: UTC+7 (Indochina Time)',
+    kicker: '04 · Verification & Inquiries',
+    title: 'Contact Cao Gia Hiếu',
+    subtitle: 'Available for technical discussions regarding Flutter engineering, monorepo architecture consulting, and open-source collaboration.',
+    primaryEmail: 'Primary Official Email',
+    githubProfile: 'GitHub Engineer Profile',
+    social: 'Social & Community Links',
+    location: 'Ho Chi Minh City, Vietnam',
+    timezone: 'UTC+7 Timezone (Indochina Time)',
     copyEmail: 'Copy Email Address',
-    copied: 'Copied to clipboard!',
-    openMail: 'Open in Email Client',
-    availableNote: 'Typically responds within 24 hours via official email.',
-    reachOut: 'Have a Flutter project that needs architectural hardening or want to discuss technical collaboration? Reach out directly via email:',
+    copied: 'Email copied to clipboard!',
+    openMail: 'Compose Direct Email',
+    availableNote: 'Usually replies within 24 hours. Contact information is reserved for professional inquiries and technical collaborations.',
+    reachOut: 'Direct Channels',
   },
   footer: {
-    headline: 'Flutter Developer from Vietnam. Author of dynamic_logger, http_security_pinning, refresh_sticky on Pub.dev, author of flutter-monorepo-codebase, and contributor to the Flutter framework.',
-    locationNote: 'CaoGiaHieu-dev.github.io · Ho Chi Minh City, Vietnam',
+    headline: 'Senior Flutter developer specializing in system architecture, network security, and developer productivity tooling.',
+    locationNote: 'Based in Ho Chi Minh City, Vietnam (UTC+7)',
     sectionsTitle: 'Navigation',
     channelsTitle: 'Verified Channels',
     googleVerified: 'Google Search Console Verified',
-    rights: 'All rights reserved.',
+    rights: 'Content and intellectual property of Cao Gia Hiếu (@CaoGiaHieu-dev).',
     backToTop: 'Back to Top ↑',
   },
 };
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class Translation {
-  readonly lang = signal<Language>(this.detectInitialLanguage());
+  readonly lang = signal<Language>(this.getInitialLanguage());
+  readonly t = computed(() => this.lang() === 'vi' ? VI_TRANSLATIONS : EN_TRANSLATIONS);
 
-  readonly t = computed<Translations>(() => {
-    return this.lang() === 'vi' ? VI_TRANSLATIONS : EN_TRANSLATIONS;
-  });
-
-  constructor() {
-    if (typeof document !== 'undefined') {
-      document.documentElement.lang = this.lang();
-    }
-
-    if (typeof window !== 'undefined') {
-      window.addEventListener('languagechange', () => {
-        let hasStoredPreference = false;
-        try {
-          hasStoredPreference = !!localStorage.getItem('user_lang');
-        } catch {}
-
-        if (!hasStoredPreference) {
-          const detected = this.detectBrowserLanguage();
-          this.setLang(detected, false);
-        }
-      });
-    }
-  }
-
-  setLang(newLang: Language, storePreference = true): void {
+  setLang(newLang: Language): void {
     this.lang.set(newLang);
-    if (typeof document !== 'undefined') {
-      document.documentElement.lang = newLang;
-    }
-    if (storePreference && typeof localStorage !== 'undefined') {
+    if (typeof localStorage !== 'undefined') {
       try {
         localStorage.setItem('user_lang', newLang);
       } catch {}
     }
+    if (typeof document !== 'undefined') {
+      document.documentElement.lang = newLang;
+    }
   }
 
-  toggleLang(): void {
-    const next: Language = this.lang() === 'vi' ? 'en' : 'vi';
-    this.setLang(next, true);
-  }
-
-  private detectInitialLanguage(): Language {
+  private getInitialLanguage(): Language {
     if (typeof localStorage !== 'undefined') {
       try {
         const stored = localStorage.getItem('user_lang');
